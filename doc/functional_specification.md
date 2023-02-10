@@ -47,19 +47,19 @@
     * Understands machine learning and model development. 
 
 
-Use Cases: 
-View model results
-User navigates to github repository 
-User views research results in main README of github repository. The README explains each of the questions and provides supporting graphs for the answers. 
+# Use Cases: 
+## View model results
+1. User navigates to github repository 
+2. User views research results in main README of github repository. The README explains each of the questions and provides supporting graphs for the answers. 
 
-Review code that produced results 
-User navigates to github repository 
-Main README has a hyperlinked table of contents that provides quick links to code. 
-User clicks on the link to the code they want to examine
-User downloads repository and reviews the code. 
+## Review code that produced results 
+1. User navigates to github repository 
+2. Main README has a hyperlinked table of contents that provides quick links to code. 
+3. User clicks on the link to the code they want to examine
+4. User downloads repository and reviews the code. 
 
-Rerun entire pipeline to refresh results 
-User navigates to github repository
-User reviews process documentation in README file under “rotten_tomatoes” folder
-User follows this process to rerun code. 
-User pushes results to github. 
+## Rerun entire pipeline to refresh results 
+1. User navigates to github repository
+2. User reviews process documentation in README file under “rotten_tomatoes” folder
+3. User follows this process to rerun code. 
+4. User pushes results to github. 
