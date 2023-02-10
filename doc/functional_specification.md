@@ -1,3 +1,8 @@
+# Background / Research Questions
+1. Historically, how well have rotten tomatoes critic scores correlated with “Best movie” Oscar wins? Stretch goal: Also look at audience scores.
+2. Historically, are rotten tomatoes ratings good predictors of wins in any category at the Oscars?
+3. Which critics are most accurate at predicting Oscar success?
+
 # User stories 
 ## Non-technical User: Someone with no technical experience at all - either software engineering or machine learning, but who is interested in the answers to our research questions.
 
@@ -45,6 +50,12 @@
 * Skills: 
     * Skilled in basic software engineering, including command-line interfaces
     * Understands machine learning and model development. 
+
+# Data Sources 
+
+[Rotten Tomatoes Dataset](https://www.kaggle.com/datasets/stefanoleone992/rotten-tomatoes-movies-and-critic-reviews-dataset?select=rotten_tomatoes_movies.csv)
+
+[Oscars Dataset](https://www.kaggle.com/datasets/unanimad/the-oscar-award)
 
 
 # Use Cases: 
