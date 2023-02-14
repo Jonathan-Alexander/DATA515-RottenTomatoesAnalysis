@@ -11,9 +11,9 @@ import json
 
 
 # Pre-Requisite 2b: Save the kaggle.json file in the src folder
-# .gitignore file includes src/kaggle.json
+# .gitignore file includes rotten_tomatoes/kaggle.json
 
-with open("./src/kaggle.json", "r") as f:
+with open("./rotten_tomatoes/kaggle.json", "r") as f:
     data = json.load(f)
 
 
@@ -34,4 +34,4 @@ api = KaggleApi()
 api.authenticate()
 
 kaggle.api.dataset_download_files("stefanoleone992/rotten-tomatoes-movies-and-critic-reviews-dataset", path ="./data/", unzip = True)
-
+kaggle.api.dataset_download_files("unanimad/the-oscar-award", path ="./data/", unzip = True)

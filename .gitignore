@@ -1,5 +1,5 @@
 /data
-/src/kaggle.json
+/rotten_tomatoes/kaggle.json
 
 # Byte-compiled / optimized / DLL files
 __pycache__/
