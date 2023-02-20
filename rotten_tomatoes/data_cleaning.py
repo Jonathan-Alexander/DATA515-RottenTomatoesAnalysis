@@ -16,11 +16,12 @@ full_data = full_data.reset_index(drop=True)
 # so do a left merge here. 
 # Do some cleaning here to make sure the names are not specified differently. 
 oscars_data.rename(columns={'film': 'movie_title'}, inplace=True)
-full_data = full_data.merge(oscars_data, on = 'movie_title', how='left')
+test = full_data.merge(oscars_data, on = 'movie_title', how='left')
 
 print(f"Movies found in Oscars dataset, but not Rotten Tomatoes. Review by hand.")
-full_data.loc[full_data['category'].isna(), 'movie_title'].unique()
+test.loc[test['category'].isna(), 'movie_title'].unique()
 
 # There are 14k observations here - too many to review by hand. 
 # Simply do an inner merge and note this as a limitation to the modeling. 
+full_data = full_data.merge(oscars_data, on = 'movie_title', how='inner')
 full_data.to_csv('./data/full_data.csv')
