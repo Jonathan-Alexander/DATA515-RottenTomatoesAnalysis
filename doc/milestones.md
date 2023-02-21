@@ -27,8 +27,6 @@
 
 ## 13. Practice Presentation (7 MAR 2023)
 
----
-
 ## Due Before 10 MAR 2023
 
 14. Any changes to the software components completed based on feedback from practice presentation
