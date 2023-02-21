@@ -24,9 +24,10 @@
 |   └── prepped
 |        └── full_data.csv
 ├── doc
-|   ├── functional_specification.md
 |   ├── component_specification.md
-|   └── how_to_run_pipeline.md
+|   ├── functional_specification.md
+|   ├── how_to_run_pipeline.md
+|   └── milestones.md
 ├── examples
 ├── images
 ├── rotten_tomatoes
