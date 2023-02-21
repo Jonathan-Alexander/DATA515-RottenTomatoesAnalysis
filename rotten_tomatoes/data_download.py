@@ -2,6 +2,8 @@
 import os
 import json
 
+
+
 # Pre-Requisite 1: pip install kaggle
 
 
@@ -13,25 +15,41 @@ import json
 # Pre-Requisite 2b: Save the kaggle.json file in the src folder
 # .gitignore file includes rotten_tomatoes/kaggle.json
 
-with open("./rotten_tomatoes/kaggle.json", "r") as f:
-    data = json.load(f)
+def get_kaggle_creds(kaggle_json_file_loc):
+
+    print("in get_kaggle_creds")
+
+    with open(kaggle_json_file_loc, "r") as f:
+        data = json.load(f)
+
+    username = data['username']
+    password = data['key']
+
+    print("username: ", username, "password", password)
+
+    return username, password
 
 
-os.environ['KAGGLE_USERNAME'] = data["username"]
-os.environ['KAGGLE_KEY'] = data["key"]
 
-# Uncomment the two lines of code below if you would rather 
-# manually enter your Kaggle username and apikey
+def download_kaggle_dataset(username, password, kaggle_dataset, file_output): 
+    print("**** in download_kaggle_dataset")
 
-# os.environ['KAGGLE_USERNAME'] = "manually_enter_username"
-# os.environ['KAGGLE_KEY'] = "manually_enter_apiKey"
+    os.environ['KAGGLE_USERNAME'] = username
+    os.environ['KAGGLE_KEY'] = password  
 
-import kaggle
-from kaggle.api.kaggle_api_extended import KaggleApi
+    from kaggle.api.kaggle_api_extended import KaggleApi
+    import kaggle
 
+    split_kaggle_dataset = kaggle_dataset.split('/')
+    print("split_kaggle_dataset: ", split_kaggle_dataset)
 
-api = KaggleApi()
-api.authenticate()
+    # if(split_kaggle_dataset.len) != 2:
+    #     raise ValueError("Oops! the kaggle_dataset parameter needs to be in the format username/dataset")
+    
+    api = KaggleApi()
+    api.authenticate()
 
-kaggle.api.dataset_download_files("stefanoleone992/rotten-tomatoes-movies-and-critic-reviews-dataset", path ="./data/", unzip = True)
-kaggle.api.dataset_download_files("unanimad/the-oscar-award", path ="./data/", unzip = True)
+    response = kaggle.api.dataset_download_files(kaggle_dataset, path = file_output, unzip = True)
+    print("&&&&&& response &&&&&&", response)
+
+    return True
