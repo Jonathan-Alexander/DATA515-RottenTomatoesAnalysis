@@ -23,15 +23,11 @@
 11. How to Run Pipeline md file completed
 12. Slide deck for practice presentation completed (including demo prep)
 
----
-
 ## 13. Practice Presentation (7 MAR 2023)
 
 ## Due Before 10 MAR 2023
 
 14. Any changes to the software components completed based on feedback from practice presentation
 15. Any changes to the documentation based on feedback from practice presentation
-
----
 
 ## 16. Final Presentation (14 MAR 2023)
