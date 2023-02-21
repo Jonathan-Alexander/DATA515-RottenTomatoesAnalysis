@@ -22,8 +22,6 @@ Exports a set of central functions
 
 None
 
----
-
 ## Component 2
 
 ### Name:
@@ -47,8 +45,6 @@ None
 ### Assumptions:
 
 - The file is being called from the root of the repository
-
----
 
 ## Component 3
 
@@ -76,8 +72,6 @@ It includes inline comments to explain the cleaning process to more technical us
 - The file is being called from the root of the repository
 - data_download.py has already been run.
 
----
-
 ## Component 4
 
 ### Name:
@@ -100,8 +94,6 @@ Images to the images/ folder that will be used in top-level README
 
 - The file is being called from the root of the repository
 - data_cleaning.py has already been run.
-
----
 
 ## Component 5
 
@@ -126,8 +118,6 @@ Images to the images/ folder that will be used in top-level README
 - The file is being called from the root of the repository
 - data_cleaning.py has already been run.
 
----
-
 ## Component 6
 
 ### Name:
@@ -150,8 +140,6 @@ Images to the images/ folder that will be used in top-level README
 
 - The file is being called from the root of the repository
 - data_cleaning.py has already been run.
-
----
 
 ## Component 7
 
