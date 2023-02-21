@@ -16,23 +16,21 @@ import json
 # .gitignore file includes rotten_tomatoes/kaggle.json
 
 def get_kaggle_creds(kaggle_json_file_loc):
-
-    print("in get_kaggle_creds")
+    #print("in get_kaggle_creds")
 
     with open(kaggle_json_file_loc, "r") as f:
         data = json.load(f)
 
     username = data['username']
     password = data['key']
-
-    print("username: ", username, "password", password)
+    #print("username: ", username, "password", password)
 
     return username, password
 
 
 
-def download_kaggle_dataset(username, password, kaggle_dataset, file_output): 
-    print("**** in download_kaggle_dataset")
+def download_kaggle_datasets(username, password, kaggle_dataset_list, file_output): 
+    #print("in download_kaggle_dataset\n")
 
     os.environ['KAGGLE_USERNAME'] = username
     os.environ['KAGGLE_KEY'] = password  
@@ -40,16 +38,17 @@ def download_kaggle_dataset(username, password, kaggle_dataset, file_output):
     from kaggle.api.kaggle_api_extended import KaggleApi
     import kaggle
 
-    split_kaggle_dataset = kaggle_dataset.split('/')
-    print("split_kaggle_dataset: ", split_kaggle_dataset)
-
-    # if(split_kaggle_dataset.len) != 2:
-    #     raise ValueError("Oops! the kaggle_dataset parameter needs to be in the format username/dataset")
-    
     api = KaggleApi()
     api.authenticate()
 
-    response = kaggle.api.dataset_download_files(kaggle_dataset, path = file_output, unzip = True)
-    print("&&&&&& response &&&&&&", response)
+    for kaggle_dataset in kaggle_dataset_list:
+
+        #split_kaggle_dataset = kaggle_dataset.split('/')
+        #print("split_kaggle_dataset: ", split_kaggle_dataset)
+
+        # if(split_kaggle_dataset.len) != 2:
+        #     raise ValueError("Oops! the kaggle_dataset parameter needs to be in the format username/dataset")
+
+        kaggle.api.dataset_download_files(kaggle_dataset, path = file_output, unzip = True)
 
     return True
