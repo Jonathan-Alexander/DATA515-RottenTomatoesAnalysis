@@ -167,4 +167,8 @@ None
 
 ---
 
+## Data Flow/Pipeline
+
+![Data Flow/Pipeline](img/Data_Flow_Pipeline.png)
+
 ## Please reference this markdown file for project milestones: [Milestones](milestones.md)
