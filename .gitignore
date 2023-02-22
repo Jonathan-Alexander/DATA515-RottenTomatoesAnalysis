@@ -1,4 +1,5 @@
 /data
+/data_download_test_data
 /rotten_tomatoes/kaggle.json
 
 # Byte-compiled / optimized / DLL files
