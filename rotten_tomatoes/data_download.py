@@ -34,12 +34,15 @@ def get_kaggle_creds(kaggle_json_file_loc):
     """
     #print("in get_kaggle_creds")
 
-    with open(kaggle_json_file_loc, "r") as f:
-        data = json.load(f)
+    try:
+
+        with open(kaggle_json_file_loc, "r") as f:
+            data = json.load(f)
+    except FileNotFoundError as e:
+        raise FileNotFoundError("Oops! {e}")
 
     username = data['username']
     password = data['key']
-    #print("username: ", username, "password", password)
 
     return username, password
 
@@ -58,10 +61,13 @@ def download_kaggle_datasets(username, password, kaggle_dataset_list, file_outpu
         List of kaggle dataset to download. Each string in the list needs to be in "username/dataset" format
     file_output : string
         String for location where downloaded files should be saved. Recommend saving in a data/raw directory
+    
+    ValueError
+        - Any of the strings in the kaggle_dataset_list are not in the username/dataset format
+        - Any of the strings in the kaggle_dataset_list return 403 error from the kaggle.api.dataset_download_files api call
+
         
     """ 
-    #print("in download_kaggle_dataset\n")
-
     os.environ['KAGGLE_USERNAME'] = username
     os.environ['KAGGLE_KEY'] = password
 
@@ -75,14 +81,20 @@ def download_kaggle_datasets(username, password, kaggle_dataset_list, file_outpu
     api = KaggleApi()
     api.authenticate()
 
+    # Check each kaggle_dataset in the kaggle_dataset_list for username/dataset format
     for kaggle_dataset in kaggle_dataset_list:
 
-        #split_kaggle_dataset = kaggle_dataset.split('/')
-        #print("split_kaggle_dataset: ", split_kaggle_dataset)
+        split_kaggle_dataset = kaggle_dataset.split('/')
+        
+        if(len(split_kaggle_dataset)) != 2:
+            raise ValueError(f'Oops! the kaggle_dataset parameter {kaggle_dataset} needs to be in the format username/dataset')
+    
+    # If all kaggle_datasets in the kaggle_dataset_list are correct, download the files
+    for kaggle_dataset in kaggle_dataset_list:
 
-        # if(split_kaggle_dataset.len) != 2:
-        #     raise ValueError("Oops! the kaggle_dataset parameter needs to be in the format username/dataset")
-
-        kaggle.api.dataset_download_files(kaggle_dataset, path = file_output, unzip = True)
+        try:
+            kaggle.api.dataset_download_files(kaggle_dataset, path = file_output, unzip = True)
+        except Exception as e:
+            raise ValueError(f'Oops! the kaggle_dataset {kaggle_dataset} returned an exception {e}')
 
     return True
