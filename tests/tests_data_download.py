@@ -46,7 +46,7 @@ class TestDataDownload(unittest.TestCase):
 
         self.assertTrue(status)
     
-    @unittest.skip("skipping the successful download test")
+    #@unittest.skip("skipping the successful download test")
     def test_download_kaggle_datasets(self):
         """ One shot test passes if download_kaggle_datasets downloads the following files to the data_download_test_data directory: 'rotten_tomatoes_critic_reviews.csv', 'rotten_tomatoes_movies.csv', 'the_oscar_award.csv'"""
         username, password = get_kaggle_creds("rotten_tomatoes/kaggle.json")
@@ -93,6 +93,22 @@ class TestDataDownload(unittest.TestCase):
 
         # stefanoleone9923 is not the username associate with rotten-tomatoes-movies-and-critic-reviews-dataset
         kaggle_dataset_list = ["stefanoleone9923/rotten-tomatoes-movies-and-critic-reviews-dataset", "unanimad/the-oscar-award"]
+
+        self.assertRaises(ValueError,download_kaggle_datasets, username, password, kaggle_dataset_list, output_loc)
+    
+    #@unittest.skip("skipping the download_kaggle_datasets Edge test 3")
+    def test_download_kaggle_datasets_edge3(self):
+        """ download_kaggle_datasets Edge test 3: invalid username and password combination, passes if download_kaggle_datasets throws a ValueError?"""
+        with open("rotten_tomatoes/kaggle.json", "r") as f:
+            data = json.load(f)
+        
+        username = data['username']
+        password = data['key']+"abc123"
+
+        output_loc = "data_download_test_data/"
+
+        # stefanoleone9923 is not the username associate with rotten-tomatoes-movies-and-critic-reviews-dataset
+        kaggle_dataset_list = ["stefanoleone992/rotten-tomatoes-movies-and-critic-reviews-dataset", "unanimad/the-oscar-award"]
 
         self.assertRaises(ValueError,download_kaggle_datasets, username, password, kaggle_dataset_list, output_loc)
 

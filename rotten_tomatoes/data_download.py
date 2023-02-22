@@ -95,6 +95,6 @@ def download_kaggle_datasets(username, password, kaggle_dataset_list, file_outpu
         try:
             kaggle.api.dataset_download_files(kaggle_dataset, path = file_output, unzip = True)
         except Exception as e:
-            raise ValueError(f'Oops! the kaggle_dataset {kaggle_dataset} returned an exception {e}')
+            raise ValueError(f'Oops! the kaggle_dataset {kaggle_dataset} returned an exception {e}. \n\nEither the username/dataset in the kaggle_dataset_list is incorrect or the username and password is incorrect. Please check both')
 
     return True
