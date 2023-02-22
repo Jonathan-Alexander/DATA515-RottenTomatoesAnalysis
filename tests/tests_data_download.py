@@ -49,11 +49,7 @@ class TestDataDownload(unittest.TestCase):
     @unittest.skip("skipping the successful download test")
     def test_download_kaggle_datasets(self):
         """ One shot test passes if download_kaggle_datasets downloads the following files to the data_download_test_data directory: 'rotten_tomatoes_critic_reviews.csv', 'rotten_tomatoes_movies.csv', 'the_oscar_award.csv'"""
-        with open("rotten_tomatoes/kaggle.json", "r") as f:
-            data = json.load(f)
-        
-        username = data['username']
-        password = data['key']
+        username, password = get_kaggle_creds("rotten_tomatoes/kaggle.json")
 
         output_loc = "data_download_test_data/"
 
