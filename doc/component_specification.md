@@ -173,7 +173,6 @@ How_to_run_Pipeline.md
 
 ### What it does:
 
--
 - Instructs the user how to run the pipeline for a new (more recent), and similar dataset
 
 ### Inputs:
