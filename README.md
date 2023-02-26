@@ -17,12 +17,10 @@
 ```
 .
 ├── data
-|   ├── raw
-|       ├── rotten_tomatoes_critic_reviews.csv
-|       ├── rotten_tomatoes_movies.csv
-|       └── the_oscar_award.csv
-|   └── prepped
-|        └── full_data.csv
+|   ├── rotten_tomatoes_critic_reviews.csv
+|   ├── rotten_tomatoes_movies.csv
+|   ├── the_oscar_award.csv
+|   └── full_data.csv
 ├── doc
 |   ├── component_specification.md
 |   ├── functional_specification.md
