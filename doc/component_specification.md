@@ -165,6 +165,30 @@ None
 
 - The expected files are in the images/ folder.
 
+## Component 8
+
+### Name:
+
+How_to_run_Pipeline.md
+
+### What it does:
+
+-
+- Instructs the user how to run the pipeline for a new (more recent), and similar dataset
+
+### Inputs:
+
+Images from the doc/img folder
+
+### Outputs:
+
+None
+
+### Assumptions:
+
+- The expected files are in the doc/img folder
+- User has technical background (Maintainer User Story)
+
 ---
 
 ## Data Flow/Pipeline
