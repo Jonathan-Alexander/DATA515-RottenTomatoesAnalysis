@@ -99,7 +99,7 @@ jobs:
         with:
           github-token: ${{ secrets.GITHUB_TOKEN }}
           base-path: rotten_tomatoes
-          path-to-lcov: rotten_tomatoes/coverage.lcov
+          path-to-lcov: coverage.lcov
           # The following two options are needed for "parallel"
           # runs - ie if you have a matrix of python versions.
           # This holds off on reporting code coverage to
