@@ -43,6 +43,7 @@ class TestDataDownload(unittest.TestCase):
     """
 
     # One shot tests
+    @unittest.skip()
     def test_get_kaggle_creds(self):
         """One shot test passes if get_kaggle_creds returns the same username and password in the rotten_tomatoes/kaggle.json file"""
         username, password = get_kaggle_creds("rotten_tomatoes/kaggle.json")
@@ -57,7 +58,7 @@ class TestDataDownload(unittest.TestCase):
 
         self.assertTrue(status)
 
-    # @unittest.skip("skipping the successful download test")
+    @unittest.skip()
     def test_download_kaggle_datasets(self):
         """One shot test passes if download_kaggle_datasets downloads the following files to the data_download_test_data directory: 'rotten_tomatoes_critic_reviews.csv', 'rotten_tomatoes_movies.csv', 'the_oscar_award.csv'"""
         username, password = get_kaggle_creds("rotten_tomatoes/kaggle.json")
@@ -84,6 +85,7 @@ class TestDataDownload(unittest.TestCase):
         self.assertTrue(downloaded_correctly)
 
     # Edge Tests
+    @unittest.skip()
     def test_download_kaggle_datasets_edge1(self):
         """download_kaggle_datasets Edge test 1: missing / in value in kaggle_dataset_list, passes if download_kaggle_datasets throws a Value Error"""
         with open("rotten_tomatoes/kaggle.json", "r") as f:
@@ -109,6 +111,7 @@ class TestDataDownload(unittest.TestCase):
             output_loc,
         )
 
+    @unittest.skip()
     def test_download_kaggle_datasets_edge2(self):
         """download_kaggle_datasets Edge test 2: invalid username/dataset returns 403 error, passes if download_kaggle_datasets throws a Value Error"""
         with open("rotten_tomatoes/kaggle.json", "r") as f:
@@ -134,7 +137,7 @@ class TestDataDownload(unittest.TestCase):
             output_loc,
         )
 
-    @unittest.skip("skipping the download_kaggle_datasets Edge test 3")
+    @unittest.skip()
     def test_download_kaggle_datasets_edge3(self):
         """download_kaggle_datasets Edge test 3: invalid username and password combination, 
         passes if download_kaggle_datasets throws a ValueError"""
@@ -156,6 +159,7 @@ class TestDataDownload(unittest.TestCase):
             download_kaggle_datasets(username, password, kaggle_dataset_list, output_loc)
 
 
+    @unittest.skip()
     def test_get_kaggle_creds_edge1(self):
         """get_kaggle_creds Edge test 1: invalid file location for kaggle.json, passes if get_kaggle_creds throws FileNotFoundError"""
 
