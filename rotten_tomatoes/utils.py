@@ -45,19 +45,50 @@ class CriticsDataCleaner(DataCleaner):
         data = pd.read_csv('./data/rotten_tomatoes_critic_reviews.csv')
         return data[self.keep_columns]
     
+    def _validate_single_score(self, score: float, original_score: str) -> float:
+        """If score > 100, cap at 100."""
+        if score > 100:
+            print(f"Score greater than 100! Current score is {score}, original score was {original_score}. Correcting to 100.")
+            return 100.0
+    
     def _clean_single_score(self, score: str) -> Optional[float]:
         """Cleans a single score to a 0-100 scale."""
+        original_score = score # For logging 
+        
+        # Correct a few scores manually. 
+        manual_corrections = {
+            '35/4': 87.5, # Assuming 3.5/4
+            '67/10': 67.0,
+            '87/10': 87.0,
+            '920': 92.0,
+            '76/10': 76.0,
+            '75/10': 75.0,
+            '910': 91.0,
+            '25/4': 62.5, # Assuming 2.5/4
+            '45/5': 90.0,
+            '73/10': 73.0,
+        }
+        if score in manual_corrections.keys():
+            return manual_corrections[score]
         substitutions = {
-            'A': 90,
-            'B': 80,
-            'C': 70,
-            'D': 60,
+            'A+': 98,
+            'A': 95,
+            'A-': 93,
+            'B+': 88,
+            'B': 85,
+            'B-': 83,
+            'C+': 78,
+            'C': 75,
+            'C-': 73,
+            'D+': 68,
+            'D': 65,
+            'D-': 63,
             'E': 50,
             'F': 40
         }
         # If score can already be converted to float, return. 
         try: 
-            return float(score)
+            return self._validate_single_score(float(score), original_score)
         except Exception as e:
             pass
         # Then, clean. 
@@ -68,13 +99,12 @@ class CriticsDataCleaner(DataCleaner):
             denominator = float(denominator)
             if denominator == 0:
                 return None
-            return (float(numerator) / float(denominator)) * 100
+            score = (float(numerator) / float(denominator)) * 100
+            return self._validate_single_score(score, original_score)
         
-        # Handle alphanumeric case. Remove any "-" or "+" signs, 
-        # and then use substitution dictionary. 
-        for char in ['-', "+", " "]: 
-            score = score.replace(char, "")
-        
+        # Handle alphanumeric case. Remove any spaces, 
+        # and then use dictionary. 
+        score = score.replace(" ", "")
         if score not in substitutions.keys():
             raise Exception(f"Unable to process score {score}.")
         return substitutions[score]
