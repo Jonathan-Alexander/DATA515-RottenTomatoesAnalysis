@@ -1,8 +1,9 @@
-from utils import (
+from rotten_tomatoes.utils.data_cleaning import (
     CriticsDataCleaner,
     MoviesDataCleaner,
     BestPictureOscarsDataCleaner,
     AnyWinOscarsDataCleaner,
+    MergeExpansionException,
 )
 
 any_win_data = AnyWinOscarsDataCleaner().run()
@@ -25,7 +26,8 @@ if end_rows > start_rows:
     )
 if end_rows < start_rows:
     print(
-        f"{start_rows - end_rows} rows have been dropped because they did not match with a movie title."
+        f"{start_rows - end_rows} rows have been dropped "
+        "because they did not match with a movie title."
     )
 
 # At this point, data should be uniquely identified by critic name and rotten tomatoes link.
@@ -35,13 +37,6 @@ if end_rows < start_rows:
 # and some movie titles are different.
 best_picture_data.rename(columns={"film": "movie_title"}, inplace=True)
 any_win_data.rename(columns={"film": "movie_title"}, inplace=True)
-
-# Do a left merge. This will show us movies we don't have rotten tomatoes ratings for.
-if False:  # TODO: give this option as a python arg?
-    best_picture_data = best_picture_data.merge(
-        critics_data, on="movie_title", how="left"
-    )
-    best_picture_data.loc[best_picture_data["review_score"].isna()]
 
 # Do an inner merge, to drop movies we don't have scores for
 # We will expect this to expand the rows, because there is more than 1 critic review per movie

@@ -8,6 +8,9 @@ import pandas as pd
 class ValidationException(Exception):
     """Raised for data validation errors."""
 
+class MergeExpansionException(Exception):
+    """Raised when a merge unexpectedly increases rows."""
+
 
 class DataCleaner:
     """Base class. Defines interface for data cleaning."""
