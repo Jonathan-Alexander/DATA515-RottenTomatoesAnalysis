@@ -1,5 +1,5 @@
 """
-Runs 2 x one shot tests, and will eventually run multiple edge cases
+Runs 2 x one shot tests and multiple edge cases
 for the functions imported from rotten_tomatoes.download_data
 
 tests_data_download does not export any classes, exceptions, or functions
@@ -10,7 +10,7 @@ import unittest
 import os
 import json
 
-from rotten_tomatoes import get_kaggle_creds, download_kaggle_datasets
+from rotten_tomatoes.utils.data_download import get_kaggle_creds, download_kaggle_datasets
 
 
 class TestDataDownload(unittest.TestCase):
@@ -28,6 +28,14 @@ class TestDataDownload(unittest.TestCase):
         Tests data_download.get_kaggle_creds function to make sure it returns the username and password from a kaggle.json file saved in the rotten_tomatoes directory
     test_download_kaggle_datasets(self)
         Tests data_download.download_kaggle_dataset function to make sure it downloads the rotten tomatoes and oscars datasets correctly
+    test_download_kaggle_datasets_edge1(self)
+        Missing / in value in kaggle_dataset_list, passes if download_kaggle_datasets throws a Value Error
+    test_download_kaggle_datasets_edge2(self)
+        Invalid username/dataset format, returns 403 error, passes if download_kaggle_datasets throws a Value Error
+    test_download_kaggle_datasets_edge3(self)
+        Invalid username and password combination, passes if download_kaggle_datasets throws a ValueError
+    test_get_kaggle_creds_edge1(self)
+        Invalid file location for kaggle.json, passes if get_kaggle_creds throws FileNotFoundError
 
     """
 
@@ -98,7 +106,7 @@ class TestDataDownload(unittest.TestCase):
     
     #@unittest.skip("skipping the download_kaggle_datasets Edge test 3")
     def test_download_kaggle_datasets_edge3(self):
-        """ download_kaggle_datasets Edge test 3: invalid username and password combination, passes if download_kaggle_datasets throws a ValueError?"""
+        """ download_kaggle_datasets Edge test 3: invalid username and password combination, passes if download_kaggle_datasets throws a ValueError"""
         with open("rotten_tomatoes/kaggle.json", "r") as f:
             data = json.load(f)
         
@@ -114,7 +122,7 @@ class TestDataDownload(unittest.TestCase):
 
 
     def test_get_kaggle_creds_edge1(self):
-        """ get_kaggle_creds Edge test 1: invalid file location for kaggle.json"""
+        """ get_kaggle_creds Edge test 1: invalid file location for kaggle.json, passes if get_kaggle_creds throws FileNotFoundError"""
 
         kaggle_json_loc = "rotten_tomatoes/kaggle2.json"
 
