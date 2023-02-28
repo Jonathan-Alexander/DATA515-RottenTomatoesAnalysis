@@ -1,4 +1,6 @@
-from rotten_tomatoes.utils.data_cleaning import (
+"""Runs data download and data cleaning steps."""
+
+from utils.data_cleaning import ( # pylint: disable=E0401
     CriticsDataCleaner,
     MoviesDataCleaner,
     BestPictureOscarsDataCleaner,
@@ -21,7 +23,7 @@ start_rows = critics_data.shape[0]
 critics_data = critics_data.merge(movie_titles, on="rotten_tomatoes_link", how="inner")
 end_rows = critics_data.shape[0]
 if end_rows > start_rows:
-    raise Exception(
+    raise MergeExpansionException(
         "Number of rows increased after merging with movie title. This is unexpected."
     )
 if end_rows < start_rows:
@@ -43,7 +45,7 @@ any_win_data.rename(columns={"film": "movie_title"}, inplace=True)
 best_picture_data = best_picture_data.merge(critics_data, on="movie_title", how="inner")
 best_picture_data = best_picture_data.drop_duplicates()
 
-print(f"Writing best picture data...")
+print("Writing best picture data...")
 best_picture_data.to_csv("./data/best_picture_data.csv")
 
 
@@ -51,5 +53,5 @@ best_picture_data.to_csv("./data/best_picture_data.csv")
 any_win_data = any_win_data.merge(critics_data, on="movie_title", how="inner")
 any_win_data = any_win_data.drop_duplicates()
 
-print(f"Writing any win data...")
+print("Writing any win data...")
 any_win_data.to_csv("./data/any_win_data.csv")

@@ -8,6 +8,7 @@ import pandas as pd
 class ValidationException(Exception):
     """Raised for data validation errors."""
 
+
 class MergeExpansionException(Exception):
     """Raised when a merge unexpectedly increases rows."""
 
@@ -226,7 +227,7 @@ class BestPictureOscarsDataCleaner(OscarsDataCleaner):
     def _validate(self, data: pd.DataFrame) -> None:
         super()._validate(data)
         # Assert no duplicate years of winners
-        winner_years = data.loc[data["winner"] is True, "year_film"]
+        winner_years = data.loc[data['winner'], "year_film"]
         value_counts = winner_years.value_counts().reset_index()
         if value_counts.loc[value_counts["year_film"] > 1].shape[0] > 0:
             raise ValidationException(
