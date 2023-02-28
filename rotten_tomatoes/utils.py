@@ -33,7 +33,6 @@ class DataCleaner():
         if data.loc[data[col].isna()].shape[0] > 0:
             raise Exception(f"Null values not allowed in {col}!")
         if not all(isinstance(x, float) for x in data[col]):
-            breakpoint()
             raise Exception(f"Found non-float values for {col}!")
 
 
@@ -163,15 +162,47 @@ class MoviesDataCleaner(DataCleaner):
 
 class OscarsDataCleaner(DataCleaner):
     """Clean Oscars dataset."""
-    keep_columns = ['year_film', 'year_ceremony', 'ceremony', 'category', 'name', 'film', 'winner']
-
+    keep_columns = ['year_film', 'category', 'film', 'winner']
+    
     def _read(self) -> pd.DataFrame:
         data = pd.read_csv('./data/the_oscar_award.csv')
         return data[self.keep_columns]
+    
+    def _clean(self, data: pd.DataFrame) -> pd.DataFrame:
+        # Drop any NaNs in winner column
+        data = data.loc[~data['winner'].isna()] 
+        return data
+
+class BestPictureOscarsDataCleaner(OscarsDataCleaner):
+    """Produce a dataset of best-picture winners."""
 
     def _clean(self, data: pd.DataFrame) -> pd.DataFrame:
-        """Clean data."""
+        data = super()._clean(data)
+        # Only keep best-picture winning categories 
+        best_picture_categories =  ['BEST MOTION PICTURE', 'BEST PICTURE', 'OUTSTANDING PICTURE', 
+                           'OUTSTANDING MOTION PICTURE', 'Best Picture', 'BEST MOTION PICTURE']
+        data = data.loc[data['category'].isin(best_picture_categories)]
+        data = data.drop_duplicates().reset_index(drop=True)
         return data
 
     def _validate(self, data: pd.DataFrame) -> None:
         super()._validate(data)
+        # Assert no duplicate years of winners 
+        winner_years = data.loc[data['winner']==True, 'year_film']
+        value_counts = winner_years.value_counts().reset_index()
+        if value_counts.loc[value_counts['year_film'] > 1].shape[0] > 0:
+            raise Exception("More than one best picture winner found in a given year!")
+        if data.loc[data['winner'].isna()].shape[0] > 0:
+            raise Exception("NAs found in winner categories! Review.")
+
+class AnyWinOscarsDataCleaner(OscarsDataCleaner):
+    
+    def _clean(self, data: pd.DataFrame) -> pd.DataFrame:
+        data = super()._clean(data)
+        data['winner'] = data['winner'].astype('int')
+        data = data.groupby(['year_film', 'film']).sum('winner').reset_index()
+        data.columns = ['year_film', 'film', 'num_wins']
+        return data
+    
+    def _validate(self, data: pd.DataFrame) -> None:
+        pass
