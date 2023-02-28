@@ -59,16 +59,16 @@ def download_kaggle_datasets(username, password, kaggle_dataset_list, file_outpu
     password : string
         Kaggle password (key)
     kaggle_dataset_list : list
-        List of kaggle dataset to download. 
+        List of kaggle dataset to download.
         Each string in the list needs to be in "username/dataset" format
     file_output : string
-        String for location where downloaded files should be saved. 
+        String for location where downloaded files should be saved.
         Recommend saving in a data/raw directory
 
     ValueError
-        - Any of the strings in the kaggle_dataset_list 
+        - Any of the strings in the kaggle_dataset_list
             are not in the username/dataset format
-        - Any of the strings in the kaggle_dataset_list 
+        - Any of the strings in the kaggle_dataset_list
             return 403 error from the kaggle.api.dataset_download_files api call
 
 
@@ -77,10 +77,10 @@ def download_kaggle_datasets(username, password, kaggle_dataset_list, file_outpu
     os.environ["KAGGLE_KEY"] = password
 
     # DO NOT MOVE THIS IMPORT STATEMENT TO THE TOP OF THE FILE
-    # When these import statements run, they look for kaggle.json 
+    # When these import statements run, they look for kaggle.json
     # in locations listed in the Kaggle documentation https://www.kaggle.com/docs/api
-    # Reference from Kaggle documentation: "the tool will look for this 
-    # token at ~/.kaggle/kaggle.json on Linux, OSX, and other UNIX-based operating systems, 
+    # Reference from Kaggle documentation: "the tool will look for this
+    # token at ~/.kaggle/kaggle.json on Linux, OSX, and other UNIX-based operating systems,
     # and at C:\Users<Windows-username>.kaggle\kaggle.json on Windows"
     # DO NOT MOVE THIS IMPORT STATEMENT TO THE TOP OF THE FILE
     from kaggle.api.kaggle_api_extended import KaggleApi  # pylint: disable=C0415
