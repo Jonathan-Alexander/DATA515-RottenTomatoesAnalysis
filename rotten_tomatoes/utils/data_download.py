@@ -2,11 +2,14 @@
 Authenticates with the Kaggle API and downloads Kaggle datasets
 
 Notes:
-Pre-Requisite 1: kaggle installed in local environment. Installation instructions included here: https://www.kaggle.com/docs/api
+Pre-Requisite 1: kaggle installed in local environment. 
+Installation instructions included here: https://www.kaggle.com/docs/api
 
-Pre-Requisite 2a: kaggle.json file created using the instructions included in the Authentication section of this website: https://www.kaggle.com/docs/api
+Pre-Requisite 2a: kaggle.json file created using the instructions included 
+in the Authentication section of this website: https://www.kaggle.com/docs/api
 
-Pre-Requisite 2b: Save the kaggle.json file. Can be saved in the rotten_tomatoes folder, or anywhere on local machine. ().gitignore file includes rotten_tomatoes/kaggle.json)
+Pre-Requisite 2b: Save the kaggle.json file. Can be saved in the rotten_tomatoes folder, 
+or anywhere on local machine. ().gitignore file includes rotten_tomatoes/kaggle.json)
 
 
 data_download exports the following functions: 
@@ -15,6 +18,8 @@ data_download exports the following functions:
 """
 import os
 import json
+
+# pylint: disable=C0103
 
 
 def get_kaggle_creds(kaggle_json_file_loc):
@@ -32,13 +37,11 @@ def get_kaggle_creds(kaggle_json_file_loc):
     password : string
         Kaggle password (key)
     """
-    # print("in get_kaggle_creds")
-
     try:
-        with open(kaggle_json_file_loc, "r") as f:
+        with open(kaggle_json_file_loc, "r") as f:  # pylint: disable=W1514
             data = json.load(f)
     except FileNotFoundError as e:
-        raise FileNotFoundError("Oops! {e}")
+        raise e
 
     username = data["username"]
     password = data["key"]
@@ -56,13 +59,17 @@ def download_kaggle_datasets(username, password, kaggle_dataset_list, file_outpu
     password : string
         Kaggle password (key)
     kaggle_dataset_list : list
-        List of kaggle dataset to download. Each string in the list needs to be in "username/dataset" format
+        List of kaggle dataset to download.
+        Each string in the list needs to be in "username/dataset" format
     file_output : string
-        String for location where downloaded files should be saved. Recommend saving in a data/raw directory
+        String for location where downloaded files should be saved.
+        Recommend saving in a data/raw directory
 
     ValueError
-        - Any of the strings in the kaggle_dataset_list are not in the username/dataset format
-        - Any of the strings in the kaggle_dataset_list return 403 error from the kaggle.api.dataset_download_files api call
+        - Any of the strings in the kaggle_dataset_list
+            are not in the username/dataset format
+        - Any of the strings in the kaggle_dataset_list
+            return 403 error from the kaggle.api.dataset_download_files api call
 
 
     """
@@ -70,11 +77,14 @@ def download_kaggle_datasets(username, password, kaggle_dataset_list, file_outpu
     os.environ["KAGGLE_KEY"] = password
 
     # DO NOT MOVE THIS IMPORT STATEMENT TO THE TOP OF THE FILE
-    # When these import statements run, they look for kaggle.json in locations listed in the Kaggle documentation https://www.kaggle.com/docs/api
-    # Reference from Kaggle documentation: "the tool will look for this token at ~/.kaggle/kaggle.json on Linux, OSX, and other UNIX-based operating systems, and at C:\Users<Windows-username>.kaggle\kaggle.json on Windows"
+    # When these import statements run, they look for kaggle.json
+    # in locations listed in the Kaggle documentation https://www.kaggle.com/docs/api
+    # Reference from Kaggle documentation: "the tool will look for this
+    # token at ~/.kaggle/kaggle.json on Linux, OSX, and other UNIX-based operating systems,
+    # and at C:\Users<Windows-username>.kaggle\kaggle.json on Windows"
     # DO NOT MOVE THIS IMPORT STATEMENT TO THE TOP OF THE FILE
-    from kaggle.api.kaggle_api_extended import KaggleApi
-    import kaggle
+    from kaggle.api.kaggle_api_extended import KaggleApi  # pylint: disable=C0415
+    import kaggle  # pylint: disable=C0415
 
     api = KaggleApi()
     api.authenticate()
@@ -85,7 +95,8 @@ def download_kaggle_datasets(username, password, kaggle_dataset_list, file_outpu
 
         if (len(split_kaggle_dataset)) != 2:
             raise ValueError(
-                f"Oops! the kaggle_dataset parameter {kaggle_dataset} needs to be in the format username/dataset"
+                f"Oops! the kaggle_dataset parameter {kaggle_dataset}"
+                "needs to be in the format username/dataset"
             )
 
     # If all kaggle_datasets in the kaggle_dataset_list are correct, download the files
@@ -96,7 +107,9 @@ def download_kaggle_datasets(username, password, kaggle_dataset_list, file_outpu
             )
         except Exception as e:
             raise ValueError(
-                f"Oops! the kaggle_dataset {kaggle_dataset} returned an exception {e}. \n\nEither the username/dataset in the kaggle_dataset_list is incorrect or the username and password is incorrect. Please check both"
-            )
+                f"Oops! the kaggle_dataset {kaggle_dataset} returned an exception."
+                "\nEither the username/dataset in the kaggle_dataset_list is incorrect "
+                "or the username and password is incorrect. Please check both."
+            ) from e
 
     return True
