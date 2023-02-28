@@ -26,8 +26,8 @@ class RegressionAnalysis:
         Args:
            X: pd.DataFrame - Input data for regression
            y: pd.DataFrame - Response variable data
-           is_categorical: bool -
-            TRUE if the response is categorical,
+           is_categorical: bool - 
+            TRUE if the response is categorical, 
             switches regression from linear to logistic
            test_size: float = 0.25  - size of test set 0-1
 
