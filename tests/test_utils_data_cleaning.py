@@ -10,7 +10,15 @@ import unittest
 import os
 import json
 
-from rotten_tomatoes import CriticsDataCleaner, MoviesDataCleaner, OscarsDataCleaner, RegressionAnalysis, CorrelationAnalysis, plot_linear_fit
+from rotten_tomatoes.utils.data_cleaning import (
+    CriticsDataCleaner,
+    MoviesDataCleaner,
+    OscarsDataCleaner,
+    RegressionAnalysis,
+    CorrelationAnalysis,
+    plot_linear_fit,
+)
+
 
 class TestUtilsDataCleaning(unittest.TestCase):
 
@@ -28,7 +36,7 @@ class TestUtilsDataCleaning(unittest.TestCase):
 
     # One shot tests
     def test_smoke_cleaners(self):
-        """ One shot test passes if..."""
+        """One shot test passes if..."""
 
         critics_data = CriticsDataCleaner().run()
         movies_data = MoviesDataCleaner().run()
@@ -37,33 +45,21 @@ class TestUtilsDataCleaning(unittest.TestCase):
         self.assertTrue(True)
 
     def test_single_score(self):
-        """ UPDATE ME"""
+        """UPDATE ME"""
 
         cleaner = CriticsDataCleaner()
-        
-        score_to_test = {
-            "A":90,
-            "B":80,
-            "4/5":90
-        }
+
+        score_to_test = {"A": 90, "B": 80, "4/5": 90}
 
         for input, output in score_to_test.items():
             unittest.assertEquals(cleaner._clean_single_score(input), output)
 
-    
-    #How do I create a test to verify the CriticsDataCleaner._clean_single_score function works properly?
+    # How do I create a test to verify the CriticsDataCleaner._clean_single_score function works properly?
 
     # ideally, I'd like to manually create a dataframe with only a few rows and feed that dataframe to the CriticsDataCleaner._clean_single_score method
 
     # or, I could check specific lines in the full_data.csv?
 
 
-
-
-
-    
-
-
-
-if __name__ == '__main__':
+if __name__ == "__main__":
     unittest.main()

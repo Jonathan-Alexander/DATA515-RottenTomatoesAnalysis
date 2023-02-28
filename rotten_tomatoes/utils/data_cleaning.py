@@ -1,6 +1,7 @@
 from typing import Any, List, Optional
 import pandas as pd
 
+
 class DataCleaner:
     """Base class. Defines interface for data cleaning."""
 
