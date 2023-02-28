@@ -29,11 +29,11 @@
 * RESULT: opens jupyter notebook on local machine to be rerun or modified
 
 ## Step 5: Run the Code
-    * Once the notebook of interest is open, run all cells to obtain updated model results
+* Once the notebook of interest is open, run all cells to obtain updated model results
 
 ## Step 6: Push New Results to Git Repository
-    * $ git add q1_modeling.ipynb (or whichever notebook has been rerun or modified)
-    * $ git commit q1_modeling.ipynb
-    * $ git push
-    * RESULT: updated results published as images in img directory
+* $ git add q1_modeling.ipynb (or whichever notebook has been rerun or modified)
+* $ git commit q1_modeling.ipynb
+* $ git push
+* RESULT: updated results published as images in img directory
 
