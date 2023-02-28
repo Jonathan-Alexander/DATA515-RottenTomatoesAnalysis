@@ -6,6 +6,7 @@ from sklearn.linear_model import LinearRegression, LogisticRegression
 import matplotlib.pyplot as plt
 import seaborn as sns
 
+
 class RegressionAnalysis:
     def __init__(
         self,
