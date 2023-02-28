@@ -1,3 +1,7 @@
+import seaborn as sns
+import pandas as pd
+import numpy as np
+
 class CorrelationAnalysis:
     
     def __init__(self, d):
