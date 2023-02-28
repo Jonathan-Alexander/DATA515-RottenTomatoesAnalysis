@@ -106,10 +106,10 @@ def download_kaggle_datasets(username, password, kaggle_dataset_list, file_outpu
                 kaggle_dataset, path=file_output, unzip=True
             )
         except Exception as e:
-            raise ValueError(
-                f"Oops! the kaggle_dataset {kaggle_dataset} returned an exception."
+            raise ValueError(  # pylint: disable=W0707
+                f"Oops! the kaggle_dataset {kaggle_dataset} returned an exception. {e}"
                 "\nEither the username/dataset in the kaggle_dataset_list is incorrect "
                 "or the username and password is incorrect. Please check both."
-            ) from e
+            )
 
     return True

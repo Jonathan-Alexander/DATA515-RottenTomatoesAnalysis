@@ -11,12 +11,11 @@ import os
 import json
 
 from rotten_tomatoes.utils.data_cleaning import (
+    DataCleaner, 
     CriticsDataCleaner,
     MoviesDataCleaner,
-    OscarsDataCleaner,
-    RegressionAnalysis,
-    CorrelationAnalysis,
-    plot_linear_fit,
+    BestPictureOscarsDataCleaner,
+    AnyWinOscarsDataCleaner,
 )
 
 
@@ -36,23 +35,22 @@ class TestUtilsDataCleaning(unittest.TestCase):
 
     # One shot tests
     def test_smoke_cleaners(self):
-        """One shot test passes if..."""
+        """One shot test passes if the class initializes."""
+        self.assertIsInstance(CriticsDataCleaner(), DataCleaner)
+        self.assertIsInstance(MoviesDataCleaner(), DataCleaner)
+        self.assertIsInstance(AnyWinOscarsDataCleaner(), DataCleaner)
+        self.assertIsInstance(BestPictureOscarsDataCleaner(), DataCleaner)
 
-        critics_data = CriticsDataCleaner().run()
-        movies_data = MoviesDataCleaner().run()
-        oscars_data = OscarsDataCleaner().run()
-
-        self.assertTrue(True)
 
     def test_single_score(self):
         """UPDATE ME"""
 
         cleaner = CriticsDataCleaner()
 
-        score_to_test = {"A": 90, "B": 80, "4/5": 90}
+        score_to_test = {"A": 95, "B": 85, "4/5": 80.0}
 
         for input, output in score_to_test.items():
-            unittest.assertEquals(cleaner._clean_single_score(input), output)
+            self.assertEquals(cleaner._clean_single_score(input), output)
 
     # How do I create a test to verify the CriticsDataCleaner._clean_single_score function works properly?
 

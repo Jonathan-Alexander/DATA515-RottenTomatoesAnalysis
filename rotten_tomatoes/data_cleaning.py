@@ -1,6 +1,6 @@
 """Runs data download and data cleaning steps."""
 
-from utils.data_cleaning import ( # pylint: disable=E0401
+from utils.data_cleaning import (  # pylint: disable=E0401
     CriticsDataCleaner,
     MoviesDataCleaner,
     BestPictureOscarsDataCleaner,

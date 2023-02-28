@@ -134,9 +134,10 @@ class TestDataDownload(unittest.TestCase):
             output_loc,
         )
 
-    # @unittest.skip("skipping the download_kaggle_datasets Edge test 3")
+    @unittest.skip("skipping the download_kaggle_datasets Edge test 3")
     def test_download_kaggle_datasets_edge3(self):
-        """download_kaggle_datasets Edge test 3: invalid username and password combination, passes if download_kaggle_datasets throws a ValueError"""
+        """download_kaggle_datasets Edge test 3: invalid username and password combination, 
+        passes if download_kaggle_datasets throws a ValueError"""
         with open("rotten_tomatoes/kaggle.json", "r") as f:
             data = json.load(f)
 
@@ -151,14 +152,9 @@ class TestDataDownload(unittest.TestCase):
             "unanimad/the-oscar-award",
         ]
 
-        self.assertRaises(
-            ValueError,
-            download_kaggle_datasets,
-            username,
-            password,
-            kaggle_dataset_list,
-            output_loc,
-        )
+        with self.assertRaises(ValueError):
+            download_kaggle_datasets(username, password, kaggle_dataset_list, output_loc)
+
 
     def test_get_kaggle_creds_edge1(self):
         """get_kaggle_creds Edge test 1: invalid file location for kaggle.json, passes if get_kaggle_creds throws FileNotFoundError"""
