@@ -1,15 +1,15 @@
 """Helper classes for statistical analysis."""
 
+from typing import Dict, Literal, Optional, Union
 import pandas as pd
 import numpy as np
-from typing import Dict, Literal, Optional, Union
 
 from sklearn.model_selection import train_test_split
 from sklearn.linear_model import LinearRegression, LogisticRegression
 import matplotlib.pyplot as plt
 import seaborn as sns
 
-# pylint: disable=C0103,R0902
+# pylint: disable=C0103,R0902,R0913
 
 
 class RegressionAnalysis:
@@ -21,7 +21,7 @@ class RegressionAnalysis:
         y: pd.DataFrame,
         is_categorical: bool,
         test_size: float = 0.25,
-        class_weights: Optional[Union[Literal['balanced'], Dict[int, float]]] = None
+        class_weights: Optional[Union[Literal["balanced"], Dict[int, float]]] = None,
     ) -> None:
         """
         Constructor for RegressionAnalysis
@@ -33,7 +33,7 @@ class RegressionAnalysis:
             TRUE if the response is categorical,
             switches regression from linear to logistic
            test_size: float = 0.25  - size of test set 0-1
-           class_weights: Optional class weights for model. 
+           class_weights: Optional class weights for model.
 
         Returns:
             None
@@ -48,7 +48,7 @@ class RegressionAnalysis:
         self.random_state = 123
 
         if is_categorical:
-            self.model_ = LogisticRegression(class_weight = class_weights)
+            self.model_ = LogisticRegression(class_weight=class_weights)
         else:
             self.model_ = LinearRegression()
 
