@@ -2,6 +2,8 @@
 
 import pandas as pd
 import numpy as np
+from typing import Dict, Literal, Optional, Union
+
 from sklearn.model_selection import train_test_split
 from sklearn.linear_model import LinearRegression, LogisticRegression
 import matplotlib.pyplot as plt
@@ -19,6 +21,7 @@ class RegressionAnalysis:
         y: pd.DataFrame,
         is_categorical: bool,
         test_size: float = 0.25,
+        class_weights: Optional[Union[Literal['balanced'], Dict[int, float]]] = None
     ) -> None:
         """
         Constructor for RegressionAnalysis
@@ -30,6 +33,7 @@ class RegressionAnalysis:
             TRUE if the response is categorical,
             switches regression from linear to logistic
            test_size: float = 0.25  - size of test set 0-1
+           class_weights: Optional class weights for model. 
 
         Returns:
             None
@@ -38,12 +42,13 @@ class RegressionAnalysis:
         self.y = y
         self.is_categorical = is_categorical
         self.test_size = test_size
+        self.class_weights = class_weights
 
         self.col_indexes = None
         self.random_state = 123
 
         if is_categorical:
-            self.model_ = LogisticRegression()
+            self.model_ = LogisticRegression(class_weight = class_weights)
         else:
             self.model_ = LinearRegression()
 
