@@ -2,11 +2,15 @@
 
 ## Step 1: Clone the Repository
 * $ git clone https://github.com/Jonathan-Alexander/DATA515-RottenTomatoesAnalysis
-* RESULT: clones repository into local environment 
+* RESULT: clones git repository into local environment
+
+## Step 2: Set up Virtual Environment
+* $ conda env update -f environment.yml
+* RESULT: updates local environment to match project environment
 
 ## Step 2: Download the Data
 * run data_download.py:
-    * RESULT: downloads 3 kaggle datasets to data directory:
+    * RESULT: downloads 3 kaggle datasets to data/raw directory:
         * rotten_tomatoes_critic_reviews.csv
         * rotten_tomatoes_movies.csv
         * the_oscar_award.scv
@@ -17,7 +21,7 @@
 
 ## Step 3: Clean the Data
 * run data_cleaning.py
-    * RESULT: cleans and joins 3 datasets into full_data.csv in data directory
+    * RESULT: cleans and joins 3 datasets into full_data.csv in data/prepped directory
 
 ## Step 4: Initialize the Jupyter Notebooks
 * q1_modeling.ipynb - Historically, how well have rotten tomatoes critic scores correlated with “Best movie” Oscar wins?
