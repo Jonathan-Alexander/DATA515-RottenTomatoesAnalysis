@@ -35,6 +35,21 @@ class TestUtilsDataCleaning(unittest.TestCase):
         oscars_data = OscarsDataCleaner().run()
 
         self.assertTrue(True)
+
+    def test_single_score(self):
+        """ UPDATE ME"""
+
+        cleaner = CriticsDataCleaner()
+        
+        score_to_test = {
+            "A":90,
+            "B":80,
+            "4/5":90
+        }
+
+        for input, output in score_to_test.items():
+            unittest.assertEquals(cleaner._clean_single_score(input), output)
+
     
     #How do I create a test to verify the CriticsDataCleaner._clean_single_score function works properly?
 
