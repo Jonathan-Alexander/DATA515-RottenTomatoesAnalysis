@@ -1,39 +1,39 @@
 # Background / Research Questions
-1. Historically, how well have rotten tomatoes critic scores correlated with “Best movie” Oscar wins? Stretch goal: Also look at audience scores.
+1. Historically, how well have rotten tomatoes critic scores correlated with “Best movie” Oscar wins? 
 2. Historically, are rotten tomatoes ratings good predictors of wins in any category at the Oscars?
-3. Which critics are most accurate at predicting Oscar success?
+
 
 # User stories 
-## Non-technical User: Someone with no technical experience at all - either software engineering or machine learning, but who is interested in the answers to our research questions.
+## Non-technical User: Someone with no technical experience at all who is interested in the answers to our research questions
 
 * Needs/Wants: 
-    * Answers to the research questions are immediately available. 
+    * Answers to the research questions immediately available
 * Interaction methods: 
-    * Point and click for results 
+    * Point and click for [results](https://github.com/Jonathan-Alexander/DATA515-RottenTomatoesAnalysis/blob/main/Results.pdf) 
 * Skills: 
     * None
 
-## Technical User: Someone without experience in machine learning, but maybe some software engineering, who is interested in the answers to our research questions
+## Technical User: Someone without experience in machine learning, but some in software engineering, who is interested in the answers to our research questions
 * Needs/Wants: 
-    * Clear documentation and repository structure, so it’s easy to find answers. 
-    * Answers to the research questions are immediately available. 
+    * Clear documentation and repository structure, so it’s easy to find answers
+    * Answers to the research questions immediately available 
     * Explainability in ML code
 * Interaction methods: 
-    * Command line/Run code in IDE
-    * Point and click for results 
+    * [Command line/Run code in IDE](https://github.com/Jonathan-Alexander/DATA515-RottenTomatoesAnalysis/blob/main/examples/how_to_run_pipeline.md)
+    * Point and click for [results](https://github.com/Jonathan-Alexander/DATA515-RottenTomatoesAnalysis/blob/main/Results.pdf) 
 * Skills: 
     * Skilled in basic software engineering, including command-line interfaces
 
 ## Peer Reviewer: Machine learning specialist who is interested in the implementation of our regressions. May want to copy our model or processing code, or extend the research. 
 * Needs/Wants: 
     * Clear documentation and repository structure, so it’s easy to find answers. 
-    * Answers to the research questions are immediately available. 
+    * Answers to the research questions immediately available
     * Explainability in ML code
-    * Needs to be more in depth than users. Need a readme going into model development, failed experiments, etc. etc. 
-    * Would not want “simple” user experience to dominate. Make it easy to find technical details right away. 
+    * Needs to be more in depth than most users. Needs documentation on model development, failed experiments, etc. 
+    * Does not want “simple” user experience to dominate. Must be easy to find technical details right away. 
 * Interaction methods: 
-    * Command line/Run code in IDE
-    * Point and click for results 
+    * [Command line/Run code in IDE](https://github.com/Jonathan-Alexander/DATA515-RottenTomatoesAnalysis/blob/main/examples/how_to_run_pipeline.md)
+    * Point and click for [results](https://github.com/Jonathan-Alexander/DATA515-RottenTomatoesAnalysis/blob/main/Results.pdf) 
 * Skills: 
     * Skilled in basic software engineering, including command-line interfaces
     * Understands basic machine learning and model development. 
@@ -46,7 +46,7 @@
         * How to clean data 
         * How to update model / public facing results 
 * Interaction methods: 
-    * Command line/Run code in IDE
+    * [Command line/Run code in IDE](https://github.com/Jonathan-Alexander/DATA515-RottenTomatoesAnalysis/blob/main/examples/how_to_run_pipeline.md)
 * Skills: 
     * Skilled in basic software engineering, including command-line interfaces
     * Understands machine learning and model development. 
@@ -60,17 +60,15 @@
 
 # Use Cases: 
 ## View model results
-1. User navigates to github repository 
-2. User views research results in main README of github repository. The README explains each of the questions and provides supporting graphs for the answers. 
+1. [View research results here](https://github.com/Jonathan-Alexander/DATA515-RottenTomatoesAnalysis/blob/main/Results.pdf)
 
 ## Review code that produced results 
-1. User navigates to github repository 
-2. Main README has a hyperlinked table of contents that provides quick links to code. 
-3. User clicks on the link to the code they want to examine
-4. User downloads repository and reviews the code. 
+1. [View Jupyter Notebook for question 1 here](https://github.com/Jonathan-Alexander/DATA515-RottenTomatoesAnalysis/blob/main/rotten_tomatoes/q1_modeling.ipynb) 
+2. [View Jupyter Notebook for question 2 here](https://github.com/Jonathan-Alexander/DATA515-RottenTomatoesAnalysis/blob/main/rotten_tomatoes/q2_modeling.ipynb)
+3. [View main code directory here](https://github.com/Jonathan-Alexander/DATA515-RottenTomatoesAnalysis/tree/main/rotten_tomatoes)
+4. Clone git repository via command line to personal machine: $ git clone https://github.com/Jonathan-Alexander/DATA515-RottenTomatoesAnalysis
 
 ## Rerun entire pipeline to refresh results 
-1. User navigates to github repository
-2. User reviews process documentation in README file under “rotten_tomatoes” folder
-3. User follows this process to rerun code. 
-4. User pushes results to github. 
+1. [Review process documentation here](https://github.com/Jonathan-Alexander/DATA515-RottenTomatoesAnalysis/blob/main/examples/how_to_run_pipeline.md#how-to-run-the-pipeline)
+2. Follow this process to rerun code. 
+3. Push results to github. 
