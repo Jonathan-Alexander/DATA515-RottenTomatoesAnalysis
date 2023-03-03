@@ -21,7 +21,7 @@ class TestDataDownload(unittest.TestCase):
     """
     A class used to test the rotten_tomatoes.data_download module
 
-    Please reference the docstrings in the rotten_tomatoes.data_download for information regarding the kaggle api key pre-requisties required to successfully execute the get_kaggle_creds and download_kaggle_datasets functions.
+    Please reference the docstrings in rotten_tomatoes.utils.data_download for information regarding the kaggle api key pre-requisties required to successfully execute the get_kaggle_creds and download_kaggle_datasets functions.
 
     ...
 
