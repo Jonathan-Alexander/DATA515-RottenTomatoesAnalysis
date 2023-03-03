@@ -119,7 +119,7 @@ class TestUtilsDataCleaning(unittest.TestCase):
              'critic_name': [4, 5, 6],
              'top_critic': [7, 8, 9],
              'review_type':[10, 11, 12],
-             'review_score': ["A+", "B", "10/10"]
+             'review_score': [98.0, 85.0, 100.0]
             }
 
         input_df =pd.DataFrame(df_to_test)
