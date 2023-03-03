@@ -1,4 +1,5 @@
-from typing import Any, List, Optional
+"""Helper classes for statistical analysis."""
+
 import pandas as pd
 import numpy as np
 from sklearn.model_selection import train_test_split
@@ -6,14 +7,17 @@ from sklearn.linear_model import LinearRegression, LogisticRegression
 import matplotlib.pyplot as plt
 import seaborn as sns
 
+# pylint: disable=C0103,R0902
+
 
 class RegressionAnalysis:
+    """Helper class for regression analysis."""
+
     def __init__(
         self,
         X: pd.DataFrame,
         y: pd.DataFrame,
         is_categorical: bool,
-        random_state: int = 123,
         test_size: float = 0.25,
     ) -> None:
         """
@@ -22,8 +26,9 @@ class RegressionAnalysis:
         Args:
            X: pd.DataFrame - Input data for regression
            y: pd.DataFrame - Response variable data
-           is_categorical: bool - TRUE if the response is categorical, switches regression from linear to logistic
-           random_state: int = 123 - random state to use in train_test_split
+           is_categorical: bool -
+            TRUE if the response is categorical,
+            switches regression from linear to logistic
            test_size: float = 0.25  - size of test set 0-1
 
         Returns:
@@ -32,9 +37,10 @@ class RegressionAnalysis:
         self.X = X
         self.y = y
         self.is_categorical = is_categorical
-        self.random_state = random_state
         self.test_size = test_size
+
         self.col_indexes = None
+        self.random_state = 123
 
         if is_categorical:
             self.model_ = LogisticRegression()
@@ -113,7 +119,6 @@ class RegressionAnalysis:
             None
         """
         self.model_ = self.model_.fit(self.X_train(), self.y_train_)
-        return
 
     def predict_test(self) -> np.ndarray:
         """Returns the models predictions on the testing input"""
@@ -133,10 +138,12 @@ class RegressionAnalysis:
         Returns:
             The models predicted outut
         """
-        return self.model.predict(X)
+        return self.model_.predict(X)
 
 
 class CorrelationAnalysis:
+    """Helper class for correlation analysis."""
+
     def __init__(self, d: pd.DataFrame) -> None:
         """
         Constructor for CorrelationAnalysis
@@ -174,7 +181,6 @@ class CorrelationAnalysis:
             None
         """
         sns.heatmap(self.corr_matrix(subset).round(2), annot=True, vmax=1, vmin=-1)
-        return
 
     def corr_coef(self, a: str, b: str) -> float:
         """
@@ -187,14 +193,17 @@ class CorrelationAnalysis:
         return self.data[a].corr(self.data[b])
 
 
-"""
---------------------
-OTHER UTILS
-====================
-"""
-
-
 def plot_linear_fit(X, y_pred, y_test):
+    """
+    Makes a scatter plot of fit between predicted and actual y.
+
+    Args:
+        X: Vector of X inputs
+        y_pred: Vector of y predictions
+        y_test: Vector of y actual
+
+    Returns: None
+    """
     plt.scatter(X, y_test, color="black")
     plt.scatter(X, y_pred, color="blue", marker=".")
     plt.show()

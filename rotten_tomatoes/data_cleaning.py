@@ -1,8 +1,11 @@
-from utils import (
+"""Runs data download and data cleaning steps."""
+
+from utils.data_cleaning import (  # pylint: disable=E0401
     CriticsDataCleaner,
     MoviesDataCleaner,
     BestPictureOscarsDataCleaner,
     AnyWinOscarsDataCleaner,
+    MergeExpansionException,
 )
 
 any_win_data = AnyWinOscarsDataCleaner().run()
@@ -20,12 +23,13 @@ start_rows = critics_data.shape[0]
 critics_data = critics_data.merge(movie_titles, on="rotten_tomatoes_link", how="inner")
 end_rows = critics_data.shape[0]
 if end_rows > start_rows:
-    raise Exception(
+    raise MergeExpansionException(
         "Number of rows increased after merging with movie title. This is unexpected."
     )
 if end_rows < start_rows:
     print(
-        f"{start_rows - end_rows} rows have been dropped because they did not match with a movie title."
+        f"{start_rows - end_rows} rows have been dropped "
+        "because they did not match with a movie title."
     )
 
 # At this point, data should be uniquely identified by critic name and rotten tomatoes link.
@@ -36,19 +40,12 @@ if end_rows < start_rows:
 best_picture_data.rename(columns={"film": "movie_title"}, inplace=True)
 any_win_data.rename(columns={"film": "movie_title"}, inplace=True)
 
-# Do a left merge. This will show us movies we don't have rotten tomatoes ratings for.
-if False:  # TODO: give this option as a python arg?
-    best_picture_data = best_picture_data.merge(
-        critics_data, on="movie_title", how="left"
-    )
-    best_picture_data.loc[best_picture_data["review_score"].isna()]
-
 # Do an inner merge, to drop movies we don't have scores for
 # We will expect this to expand the rows, because there is more than 1 critic review per movie
 best_picture_data = best_picture_data.merge(critics_data, on="movie_title", how="inner")
 best_picture_data = best_picture_data.drop_duplicates()
 
-print(f"Writing best picture data...")
+print("Writing best picture data...")
 best_picture_data.to_csv("./data/best_picture_data.csv")
 
 
@@ -56,5 +53,5 @@ best_picture_data.to_csv("./data/best_picture_data.csv")
 any_win_data = any_win_data.merge(critics_data, on="movie_title", how="inner")
 any_win_data = any_win_data.drop_duplicates()
 
-print(f"Writing any win data...")
+print("Writing any win data...")
 any_win_data.to_csv("./data/any_win_data.csv")

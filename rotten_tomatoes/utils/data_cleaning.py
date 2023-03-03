@@ -1,5 +1,17 @@
-from typing import Any, List, Optional
+"""Helper classes for raw data cleaning."""
+from typing import Optional
 import pandas as pd
+
+# pylint: disable=R0903,C0103
+
+
+class ValidationException(Exception):
+    """Raised for data validation errors."""
+
+
+class MergeExpansionException(Exception):
+    """Raised when a merge unexpectedly increases rows."""
+
 
 class DataCleaner:
     """Base class. Defines interface for data cleaning."""
@@ -26,15 +38,15 @@ class DataCleaner:
     def _validate(self, data: pd.DataFrame) -> None:
         for col in self.keep_columns:
             if col not in data:
-                raise Exception(f"Missing {col} from data!")
+                raise ValidationException(f"Missing {col} from data!")
 
     def _validate_rating_col(self, data: pd.DataFrame, col: str) -> None:
         if col not in data.columns:
-            raise Exception(f"Column {col} not available in passed data!")
+            raise ValidationException(f"Column {col} not available in passed data!")
         if data.loc[data[col].isna()].shape[0] > 0:
-            raise Exception(f"Null values not allowed in {col}!")
+            raise ValidationException(f"Null values not allowed in {col}!")
         if not all(isinstance(x, float) for x in data[col]):
-            raise Exception(f"Found non-float values for {col}!")
+            raise ValidationException(f"Found non-float values for {col}!")
 
 
 class CriticsDataCleaner(DataCleaner):
@@ -56,9 +68,11 @@ class CriticsDataCleaner(DataCleaner):
         """If score > 100, cap at 100."""
         if score > 100:
             print(
-                f"Score greater than 100! Current score is {score}, original score was {original_score}. Correcting to 100."
+                f"Score greater than 100! Current score is {score}, ",
+                f"original score was {original_score}. Correcting to 100.",
             )
             return 100.0
+        return score
 
     def _clean_single_score(self, score: str) -> Optional[float]:
         """Cleans a single score to a 0-100 scale."""
@@ -77,7 +91,7 @@ class CriticsDataCleaner(DataCleaner):
             "45/5": 90.0,
             "73/10": 73.0,
         }
-        if score in manual_corrections.keys():
+        if score in manual_corrections:
             return manual_corrections[score]
         substitutions = {
             "A+": 98,
@@ -98,7 +112,7 @@ class CriticsDataCleaner(DataCleaner):
         # If score can already be converted to float, return.
         try:
             return self._validate_single_score(float(score), original_score)
-        except Exception as e:
+        except:  # pylint: disable=W0702
             pass
         # Then, clean.
         # First, take any observations with a "/" and divide them.
@@ -114,8 +128,8 @@ class CriticsDataCleaner(DataCleaner):
         # Handle alphanumeric case. Remove any spaces,
         # and then use dictionary.
         score = score.replace(" ", "")
-        if score not in substitutions.keys():
-            raise Exception(f"Unable to process score {score}.")
+        if score not in substitutions:
+            raise ValueError(f"Unable to process score {score}.")
         return substitutions[score]
 
     def _clean(self, data: pd.DataFrame) -> pd.DataFrame:
@@ -213,15 +227,19 @@ class BestPictureOscarsDataCleaner(OscarsDataCleaner):
     def _validate(self, data: pd.DataFrame) -> None:
         super()._validate(data)
         # Assert no duplicate years of winners
-        winner_years = data.loc[data["winner"] == True, "year_film"]
+        winner_years = data.loc[data["winner"], "year_film"]
         value_counts = winner_years.value_counts().reset_index()
         if value_counts.loc[value_counts["year_film"] > 1].shape[0] > 0:
-            raise Exception("More than one best picture winner found in a given year!")
+            raise ValidationException(
+                "More than one best picture winner found in a given year!"
+            )
         if data.loc[data["winner"].isna()].shape[0] > 0:
-            raise Exception("NAs found in winner categories! Review.")
+            raise ValidationException("NAs found in winner categories! Review.")
 
 
 class AnyWinOscarsDataCleaner(OscarsDataCleaner):
+    """Calculates movies with any win from Oscars dataset."""
+
     def _clean(self, data: pd.DataFrame) -> pd.DataFrame:
         data = super()._clean(data)
         data["winner"] = data["winner"].astype("int")
