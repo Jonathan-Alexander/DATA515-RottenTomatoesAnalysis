@@ -50,23 +50,25 @@ class TestDataDownload(unittest.TestCase):
     """
 
     # One shot tests
-    @unittest.skip("revisit")
+    #@unittest.skip("")
     def test_get_kaggle_creds(self):
         """One shot test passes if get_kaggle_creds returns the same username and password
         in the rotten_tomatoes/kaggle.json file"""
-        username, password = get_kaggle_creds("rotten_tomatoes/kaggle.json")
 
-        with open("rotten_tomatoes/kaggle.json", "r", encoding='utf-8') as file:
+        dummy_kaggle_json_loc = "tests/dummy_kaggle.json"
+        username, password = get_kaggle_creds(dummy_kaggle_json_loc)
+
+        with open(dummy_kaggle_json_loc, "r", encoding='utf-8') as file:
             data = json.load(file)
 
         username_correct = data["username"]
         password_correct = data["key"]
 
-        status = username_correct == username and (password_correct == password)
+        status = (username_correct == username) and (password_correct == password)
 
         self.assertTrue(status)
 
-    @unittest.skip("revisit")
+    @unittest.skip("Can't be included in CI tests since Kaggle API key is required to download the data")
     def test_download_kaggle_datasets(self):
         """One shot test passes if download_kaggle_datasets downloads the following files
         to the data_download_test_data directory:
@@ -95,7 +97,7 @@ class TestDataDownload(unittest.TestCase):
         self.assertTrue(downloaded_correctly)
 
     # Edge Tests
-    @unittest.skip("revisit")
+    @unittest.skip("Can't be included in CI tests since Kaggle API key is required to download the data")
     def test_download_kaggle_datasets_edge1(self):
         """download_kaggle_datasets Edge test 1: missing / in value in kaggle_dataset_list,
         passes if download_kaggle_datasets throws a Value Error"""
@@ -122,7 +124,7 @@ class TestDataDownload(unittest.TestCase):
             output_loc,
         )
 
-    @unittest.skip("revisit")
+    @unittest.skip("Can't be included in CI tests since Kaggle API key is required to download the data")
     def test_download_kaggle_datasets_edge2(self):
         """download_kaggle_datasets Edge test 2: invalid username/dataset returns 403 error,
         passes if download_kaggle_datasets throws a Value Error"""
@@ -150,7 +152,7 @@ class TestDataDownload(unittest.TestCase):
             output_loc,
         )
 
-    @unittest.skip("revisit")
+    @unittest.skip("Can't be included in CI tests since Kaggle API key is required to download the data")
     def test_download_kaggle_datasets_edge3(self):
         """download_kaggle_datasets Edge test 3: invalid username and password combination,
         passes if download_kaggle_datasets throws a ValueError"""
@@ -173,7 +175,7 @@ class TestDataDownload(unittest.TestCase):
             download_kaggle_datasets(username, password, kaggle_dataset_list, output_loc)
 
 
-    @unittest.skip("revisit")
+    #@unittest.skip("revisit")
     def test_get_kaggle_creds_edge1(self):
         """get_kaggle_creds Edge test 1: invalid file location for kaggle.json, passes if
         get_kaggle_creds throws FileNotFoundError"""
