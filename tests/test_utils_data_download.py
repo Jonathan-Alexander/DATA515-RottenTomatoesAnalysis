@@ -50,7 +50,7 @@ class TestDataDownload(unittest.TestCase):
     """
 
     # One shot tests
-    @unittest.skip("revisit")
+    #@unittest.skip("revisit")
     def test_get_kaggle_creds(self):
         """One shot test passes if get_kaggle_creds returns the same username and password
         in the rotten_tomatoes/kaggle.json file"""
@@ -62,11 +62,11 @@ class TestDataDownload(unittest.TestCase):
         username_correct = data["username"]
         password_correct = data["key"]
 
-        status = username_correct == username and (password_correct == password)
+        status = (username_correct == username) and (password_correct == password)
 
         self.assertTrue(status)
 
-    @unittest.skip("revisit")
+    #@unittest.skip("revisit")
     def test_download_kaggle_datasets(self):
         """One shot test passes if download_kaggle_datasets downloads the following files
         to the data_download_test_data directory:
