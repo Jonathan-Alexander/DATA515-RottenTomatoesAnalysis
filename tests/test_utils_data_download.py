@@ -68,7 +68,7 @@ class TestDataDownload(unittest.TestCase):
 
         self.assertTrue(status)
 
-    #@unittest.skip("Can't be included in CI tests since Kaggle API key is required to download the data")
+    @unittest.skip("Can't be included in CI tests since Kaggle API key is required to download the data")
     def test_download_kaggle_datasets(self):
         """One shot test passes if download_kaggle_datasets downloads the following files
         to the data_download_test_data directory:
