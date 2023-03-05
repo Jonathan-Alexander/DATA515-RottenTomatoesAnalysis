@@ -11,11 +11,12 @@ import pandas as pd
 
 from rotten_tomatoes.utils.data_cleaning import ( # pylint: disable=E0401
     DataCleaner,
-    CriticsDataCleaner
+    CriticsDataCleaner,
+    ValidationException
 )
 
 
-class TestUtilsDataCleaning(unittest.TestCase):
+class TestUtilsDataCleaningCritics(unittest.TestCase):
     """ A class used to test the rotten_tomatoes.utils.data_cleaning module """
 
     # Smoke test
@@ -176,7 +177,7 @@ class TestUtilsDataCleaning(unittest.TestCase):
 
         for data in dfs_to_test:
             input_df =pd.DataFrame(data)
-            self.assertRaises(Exception, cleaner._validate, input_df)
+            self.assertRaises(ValidationException, cleaner._validate, input_df)
 
 
 
