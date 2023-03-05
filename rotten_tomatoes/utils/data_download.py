@@ -14,6 +14,7 @@ or anywhere on local machine. ().gitignore file includes rotten_tomatoes/kaggle.
 
 data_download exports the following functions:
     get_kaggle_creds
+    validate_kaggle_dataset_list
     download_kaggle_datasets
 """
 import os
@@ -48,6 +49,35 @@ def get_kaggle_creds(kaggle_json_file_loc):
 
     return username, password
 
+def validate_kaggle_dataset_list(kaggle_dataset_list):
+    """Validates username/dataset format for every string in kaggle_dataset_list
+
+    Parameters
+    ----------
+    kaggle_dataset_list : list
+        List of kaggle datasets to download.
+        Each string in the list needs to be in "username/dataset" format
+
+    ValueError
+        - Any of the strings in the kaggle_dataset_list
+            are not in the username/dataset format
+
+    AttributeError
+        - Any of the values in kaggle_dataset_list is not a string
+    """
+    # Check each kaggle_dataset in the kaggle_dataset_list for username/dataset format
+    for kaggle_dataset in kaggle_dataset_list:
+
+        if not isinstance(kaggle_dataset, str):
+            raise AttributeError(f"Oops! the kaggle_dataset parameter {kaggle_dataset}"
+                                 "is not a string")
+        split_kaggle_dataset = kaggle_dataset.split("/")
+
+        if (len(split_kaggle_dataset)) != 2:
+            raise ValueError(
+                f"Oops! the kaggle_dataset parameter {kaggle_dataset}"
+                "needs to be in the format username/dataset"
+            )
 
 def download_kaggle_datasets(username, password, kaggle_dataset_list, file_output):
     """Downloads all files from kaggle_dataset_list to the file_output location
@@ -59,7 +89,7 @@ def download_kaggle_datasets(username, password, kaggle_dataset_list, file_outpu
     password : string
         Kaggle password (key)
     kaggle_dataset_list : list
-        List of kaggle dataset to download.
+        List of kaggle datasets to download.
         Each string in the list needs to be in "username/dataset" format
     file_output : string
         String for location where downloaded files should be saved.
@@ -91,15 +121,7 @@ def download_kaggle_datasets(username, password, kaggle_dataset_list, file_outpu
     api = KaggleApi()
     api.authenticate()
 
-    # Check each kaggle_dataset in the kaggle_dataset_list for username/dataset format
-    for kaggle_dataset in kaggle_dataset_list:
-        split_kaggle_dataset = kaggle_dataset.split("/")
-
-        if (len(split_kaggle_dataset)) != 2:
-            raise ValueError(
-                f"Oops! the kaggle_dataset parameter {kaggle_dataset}"
-                "needs to be in the format username/dataset"
-            )
+    validate_kaggle_dataset_list(kaggle_dataset_list)
 
     # If all kaggle_datasets in the kaggle_dataset_list are correct, download the files
     for kaggle_dataset in kaggle_dataset_list:

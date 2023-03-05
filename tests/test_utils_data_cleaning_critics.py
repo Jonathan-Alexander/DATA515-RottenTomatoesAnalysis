@@ -11,27 +11,19 @@ import pandas as pd
 
 from rotten_tomatoes.utils.data_cleaning import ( # pylint: disable=E0401
     DataCleaner,
-    CriticsDataCleaner,
-    MoviesDataCleaner,
-    BestPictureOscarsDataCleaner,
-    AnyWinOscarsDataCleaner,
+    CriticsDataCleaner
 )
 
 
 class TestUtilsDataCleaning(unittest.TestCase):
-
     """ A class used to test the rotten_tomatoes.utils.data_cleaning module """
 
     # Smoke test
-    def test_smoke_cleaners(self):
+    def test_smoke_cleaner(self):
         """Smoke test passes if the class initializes."""
         self.assertIsInstance(CriticsDataCleaner(), DataCleaner)
-        self.assertIsInstance(MoviesDataCleaner(), DataCleaner)
-        self.assertIsInstance(AnyWinOscarsDataCleaner(), DataCleaner)
-        self.assertIsInstance(BestPictureOscarsDataCleaner(), DataCleaner)
 
-
-    # One shot tests
+    # One shot tests (base tests)
     def test_single_score_critics(self):
         """Input values from scores_to_test dict passed to cleaner._clean_single_score function.
         Test passes if _clean_single_score returns the corresponding output values
@@ -81,7 +73,7 @@ class TestUtilsDataCleaning(unittest.TestCase):
             self.assertEqual(cleaner._clean_single_score(input_str), output)
 
     def test_clean_critics(self):
-        """Test passes if the _clean function moves rows with None in the review_score column """
+        """Test passes if the _clean function removes rows with None in the review_score column """
 
         cleaner = CriticsDataCleaner()
 
@@ -145,6 +137,46 @@ class TestUtilsDataCleaning(unittest.TestCase):
 
         for input_str in scores_to_test_for_error:
             self.assertRaises(ValueError, cleaner._clean_single_score,input_str)
+    def test_validate_edge(self):
+        """Passes if Validation  Exeption thrown by _validate_rating_col """
+
+        cleaner = CriticsDataCleaner()
+
+        cleaner.keep_columns = [
+            "rotten_tomatoes_link",
+            "critic_name",
+            "top_critic",
+            "review_type",
+            "review_score",
+        ]
+
+        dfs_to_test = [
+            {'rotten_tomatoes_link': [1, 2, 3],
+             'critic_name': [4, 5, 6],
+             'top_critic': [7, 8, 9],
+            },
+
+            {'review_type':[10, 11, 12],
+             'review_score': [100.0, 85.0, 75.0]
+            },
+
+            {'rotten_tomatoes_link': [1, 2, 3],
+             'critic_name': [4, 5, 6],
+             'top_critic': [7, 8, 9],
+             'review_type':[10, 11, 12],
+             'review_score': [100.0, None, 85.0]
+            },
+            {'rotten_tomatoes_link': [1, 2, 3],
+             'critic_name': [4, 5, 6],
+             'top_critic': [7, 8, 9],
+             'review_type':[10, 11, 12],
+             'review_score': ["A+", 100.0, 85.0]
+            }
+        ]
+
+        for data in dfs_to_test:
+            input_df =pd.DataFrame(data)
+            self.assertRaises(Exception, cleaner._validate, input_df)
 
 
 

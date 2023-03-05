@@ -7,12 +7,11 @@ tests_data_download does not export any classes, exceptions, or functions
 
 
 import unittest
-import os
 import json
 
 from rotten_tomatoes.utils.data_download import ( # pylint: disable=E0401
     get_kaggle_creds,
-    download_kaggle_datasets,
+    validate_kaggle_dataset_list
 )
 
 
@@ -32,25 +31,19 @@ class TestDataDownload(unittest.TestCase):
     test_get_kaggle_creds(self)
         Tests data_download.get_kaggle_creds function to make sure it returns the username
         and password from a kaggle.json file saved in the rotten_tomatoes directory
-    test_download_kaggle_datasets(self)
-        Tests data_download.download_kaggle_dataset function to make sure it downloads
-        the rotten tomatoes and oscars datasets correctly
     test_download_kaggle_datasets_edge1(self)
         Missing / in value in kaggle_dataset_list, passes if download_kaggle_datasets
         throws a Value Error
-    test_download_kaggle_datasets_edge2(self)
-        Invalid username/dataset format, returns 403 error, passes if
-        download_kaggle_datasets throws a Value Error
-    test_download_kaggle_datasets_edge3(self)
-        Invalid username and password combination, passes if
-        download_kaggle_datasets throws a ValueError
     test_get_kaggle_creds_edge1(self)
         Invalid file location for kaggle.json, passes if get_kaggle_creds throws FileNotFoundError
+    test_validate_kaggle_dataset_list_edge2(self)
+        value in kaggle_dataset_list is not a string,
+        passes if validate_kaggle_dataset_list throws a Attribute Error
+
 
     """
 
     # One shot tests
-    #@unittest.skip("")
     def test_get_kaggle_creds(self):
         """One shot test passes if get_kaggle_creds returns the same username and password
         in the rotten_tomatoes/kaggle.json file"""
@@ -68,46 +61,35 @@ class TestDataDownload(unittest.TestCase):
 
         self.assertTrue(status)
 
-    @unittest.skip("Can't be included in CI tests since Kaggle API key is required to download the data")
-    def test_download_kaggle_datasets(self):
-        """One shot test passes if download_kaggle_datasets downloads the following files
-        to the data_download_test_data directory:
-        'rotten_tomatoes_critic_reviews.csv', 'rotten_tomatoes_movies.csv', 'the_oscar_award.csv'"""
-        username, password = get_kaggle_creds("rotten_tomatoes/kaggle.json")
-
-        output_loc = "data_download_test_data/"
+    def test_validate_kaggle_dataset_list(self):
+        """validate_kaggle_dataset_list one-shot test: passes if no ValueError is thrown"""
 
         kaggle_dataset_list = [
             "stefanoleone992/rotten-tomatoes-movies-and-critic-reviews-dataset",
             "unanimad/the-oscar-award",
         ]
 
-        download_kaggle_datasets(username, password, kaggle_dataset_list, output_loc)
+        flag = False
 
-        file_names = os.listdir(output_loc)
+        validate_kaggle_dataset_list(kaggle_dataset_list)
 
-        files_to_check_for = [
-            "rotten_tomatoes_critic_reviews.csv",
-            "rotten_tomatoes_movies.csv",
-            "the_oscar_award.csv",
-        ]
+        flag = True
 
-        downloaded_correctly = all(file in file_names for file in files_to_check_for)
+        self.assertTrue(flag)
 
-        self.assertTrue(downloaded_correctly)
 
-    # Edge Tests
-    @unittest.skip("Can't be included in CI tests since Kaggle API key is required to download the data")
-    def test_download_kaggle_datasets_edge1(self):
-        """download_kaggle_datasets Edge test 1: missing / in value in kaggle_dataset_list,
-        passes if download_kaggle_datasets throws a Value Error"""
-        with open("rotten_tomatoes/kaggle.json", "r", encoding='utf-8') as file:
-            data = json.load(file)
+    def test_get_kaggle_creds_edge1(self):
+        """get_kaggle_creds Edge test 1: invalid file location for kaggle.json, passes if
+        get_kaggle_creds throws FileNotFoundError"""
 
-        username = data["username"]
-        password = data["key"]
+        kaggle_json_loc = "rotten_tomatoes/kaggle2.json"
 
-        output_loc = "data_download_test_data/"
+        self.assertRaises(FileNotFoundError, get_kaggle_creds, kaggle_json_loc)
+
+
+    def test_validate_kaggle_dataset_list_edge1(self):
+        """validate_kaggle_dataset_list Edge test 1: missing / in value in kaggle_dataset_list,
+        passes if validate_kaggle_dataset_list throws a Value Error"""
 
         # the / was removed in the second term in kaggle_dataset_list
         kaggle_dataset_list = [
@@ -117,72 +99,25 @@ class TestDataDownload(unittest.TestCase):
 
         self.assertRaises(
             ValueError,
-            download_kaggle_datasets,
-            username,
-            password,
+            validate_kaggle_dataset_list,
             kaggle_dataset_list,
-            output_loc,
         )
 
-    @unittest.skip("Can't be included in CI tests since Kaggle API key is required to download the data")
-    def test_download_kaggle_datasets_edge2(self):
-        """download_kaggle_datasets Edge test 2: invalid username/dataset returns 403 error,
-        passes if download_kaggle_datasets throws a Value Error"""
-        with open("rotten_tomatoes/kaggle.json", "r", encoding='utf-8') as file:
-            data = json.load(file)
+    def test_validate_kaggle_dataset_list_edge2(self):
+        """validate_kaggle_dataset_list Edge test 2: value in kaggle_dataset_list is not a string,
+        passes if validate_kaggle_dataset_list throws a Attribute Error"""
 
-        username = data["username"]
-        password = data["key"]
-
-        output_loc = "data_download_test_data/"
-
-        # stefanoleone9923 is not the username associated with
-        # rotten-tomatoes-movies-and-critic-reviews-dataset
+        # integer passed instead of string
         kaggle_dataset_list = [
-            "stefanoleone9923/rotten-tomatoes-movies-and-critic-reviews-dataset",
-            "unanimad/the-oscar-award",
+            "stefanoleone992/rotten-tomatoes-movies-and-critic-reviews-dataset",
+            1234,
         ]
 
         self.assertRaises(
-            ValueError,
-            download_kaggle_datasets,
-            username,
-            password,
+            AttributeError,
+            validate_kaggle_dataset_list,
             kaggle_dataset_list,
-            output_loc,
         )
-
-    @unittest.skip("Can't be included in CI tests since Kaggle API key is required to download the data")
-    def test_download_kaggle_datasets_edge3(self):
-        """download_kaggle_datasets Edge test 3: invalid username and password combination,
-        passes if download_kaggle_datasets throws a ValueError"""
-        with open("rotten_tomatoes/kaggle.json", "r", encoding='utf-8') as file:
-            data = json.load(file)
-
-        username = data["username"]
-        password = data["key"] + "abc123"
-
-        output_loc = "data_download_test_data/"
-
-        # stefanoleone9923 is not the username associate with
-        # rotten-tomatoes-movies-and-critic-reviews-dataset
-        kaggle_dataset_list = [
-            "stefanoleone992/rotten-tomatoes-movies-and-critic-reviews-dataset",
-            "unanimad/the-oscar-award",
-        ]
-
-        with self.assertRaises(ValueError):
-            download_kaggle_datasets(username, password, kaggle_dataset_list, output_loc)
-
-
-    #@unittest.skip("revisit")
-    def test_get_kaggle_creds_edge1(self):
-        """get_kaggle_creds Edge test 1: invalid file location for kaggle.json, passes if
-        get_kaggle_creds throws FileNotFoundError"""
-
-        kaggle_json_loc = "rotten_tomatoes/kaggle2.json"
-
-        self.assertRaises(FileNotFoundError, get_kaggle_creds, kaggle_json_loc)
 
 
 if __name__ == "__main__":
