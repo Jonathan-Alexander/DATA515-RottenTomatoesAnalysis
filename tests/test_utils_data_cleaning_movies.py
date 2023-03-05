@@ -27,7 +27,7 @@ class TestUtilsDataCleaningMovies(unittest.TestCase):
     # One shot tests (base tests)
     def test_clean_movies(self):
         """Test passes if the _clean function removes rows with None in the review_score column """
-        cleaner = MoviesDataCleaner()
+        cleaner_movies = MoviesDataCleaner()
 
         dfs_to_test = [
 
@@ -49,12 +49,12 @@ class TestUtilsDataCleaningMovies(unittest.TestCase):
 
         for data, numrows in dfs_to_test:
             input_df =pd.DataFrame(data)
-            self.assertEqual(cleaner._clean(input_df).shape[0], numrows)
+            self.assertEqual(cleaner_movies._clean(input_df).shape[0], numrows)
 
     def test_validate_movies(self):
         """Passes if no error thrown by _validate"""
 
-        cleaner = MoviesDataCleaner()
+        cleaner_movies = MoviesDataCleaner()
 
         flag = False
 
@@ -65,7 +65,7 @@ class TestUtilsDataCleaningMovies(unittest.TestCase):
             }
 
         input_df =pd.DataFrame(df_to_test)
-        cleaner._validate(input_df)
+        cleaner_movies._validate(input_df)
 
         flag = True
         self.assertTrue(flag)
@@ -75,9 +75,9 @@ class TestUtilsDataCleaningMovies(unittest.TestCase):
     def test_validate_edge(self):
         """Passes if Validation  Exeption thrown by _validate_rating_col """
 
-        cleaner = MoviesDataCleaner()
+        cleaner_movies = MoviesDataCleaner()
 
-        cleaner.keep_columns = [
+        cleaner_movies.keep_columns = [
             "rotten_tomatoes_link",
             "movie_title",
             "tomatometer_rating",
@@ -117,7 +117,7 @@ class TestUtilsDataCleaningMovies(unittest.TestCase):
 
         for data in dfs_to_test:
             input_df =pd.DataFrame(data)
-            self.assertRaises(ValidationException, cleaner._validate, input_df)
+            self.assertRaises(ValidationException, cleaner_movies._validate, input_df)
 
 
 if __name__ == "__main__":

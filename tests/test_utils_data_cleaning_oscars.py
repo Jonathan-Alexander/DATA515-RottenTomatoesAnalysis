@@ -27,7 +27,7 @@ class TestUtilsDataCleaningOscars(unittest.TestCase):
     # One shot tests (base tests)
     def test_clean_oscars(self):
         """Test passes if the _clean function removes rows with None in the review_score column """
-        cleaner = OscarsDataCleaner()
+        cleaner_oscars = OscarsDataCleaner()
 
         dfs_to_test = [
 
@@ -49,13 +49,13 @@ class TestUtilsDataCleaningOscars(unittest.TestCase):
 
         for data, numrows in dfs_to_test:
             input_df =pd.DataFrame(data)
-            self.assertEqual(cleaner._clean(input_df).shape[0], numrows)
+            self.assertEqual(cleaner_oscars._clean(input_df).shape[0], numrows)
     
     #@unittest.skip("need to update")
     def test_validate_movies(self):
         """Passes if no error thrown by _validate"""
 
-        cleaner = OscarsDataCleaner()
+        cleaner_oscars = OscarsDataCleaner()
 
         flag = False
 
@@ -66,7 +66,7 @@ class TestUtilsDataCleaningOscars(unittest.TestCase):
             }
 
         input_df =pd.DataFrame(df_to_test)
-        cleaner._validate(input_df)
+        cleaner_oscars._validate(input_df)
 
         flag = True
         self.assertTrue(flag)
@@ -76,9 +76,9 @@ class TestUtilsDataCleaningOscars(unittest.TestCase):
     def test_validate_edge(self):
         """Passes if Validation  Exeption thrown by _validate_rating_col """
 
-        cleaner = OscarsDataCleaner()
+        cleaner_oscars = OscarsDataCleaner()
 
-        cleaner.keep_columns = ["year_film", "category", "film", "winner"]
+        cleaner_oscars.keep_columns = ["year_film", "category", "film", "winner"]
 
         dfs_to_test = [
             {'film':["ABC123", "Some Movie", 6],
@@ -93,7 +93,7 @@ class TestUtilsDataCleaningOscars(unittest.TestCase):
         for data in dfs_to_test:
             input_df =pd.DataFrame(data)
             print(data)
-            self.assertRaises(ValidationException, cleaner._validate, input_df)
+            self.assertRaises(ValidationException, cleaner_oscars._validate, input_df)
 
 
 if __name__ == "__main__":
