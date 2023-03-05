@@ -64,7 +64,7 @@ def validate_kaggle_dataset_list(kaggle_dataset_list):
     
     AttributeError
         - Any of the values in kaggle_dataset_list is not a string
-    """  
+    """ 
     # Check each kaggle_dataset in the kaggle_dataset_list for username/dataset format
     for kaggle_dataset in kaggle_dataset_list:
 
