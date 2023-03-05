@@ -1,6 +1,6 @@
 """Runs data download steps."""
 
-from utils.data_download import ( # pylint: disable=E0401
+from utils.data_download import (  # pylint: disable=E0401
     get_kaggle_creds,
     download_kaggle_datasets,
 )

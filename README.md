@@ -9,7 +9,7 @@ This project uses logistic regression models and statistical analysis methods to
 [Oscars Dataset](https://www.kaggle.com/datasets/unanimad/the-oscar-award)
 
 ### What questions does this analysis address? 
-1. Historically, how well have rotten tomatoes critic scores correlated with “Best movie” Oscar wins? 
+1. Historically, how well have rotten tomatoes critic scores correlated with “Best picture” Oscar wins? 
 2. Historically, are rotten tomatoes ratings good predictors of wins in any category at the Oscars?
 
 ### What are the possible use cases for this analysis?
@@ -25,8 +25,22 @@ This project uses logistic regression models and statistical analysis methods to
 
 ## Results 
 ### Question 1:  
+To find the answer to the question "Historically, how well have Rotten Tomatoes scores correlated with best picture Oscar wins?", we ran a simple logistic regression of critic rotten tomatoes score to best picture wins. When plotting the data, you see that many winning movies have low Oscar scores. 
+![](images/ratings_bins_all.png)
 
+It seemed like there might be an outlier issue, with even very popular movies getting low ratings from a few critics. For example, here are the critic ratings for the film "American Beauty", which won the best picture Oscar in 1999. 
+![](images/american_beauty_scores.png)
 
+So we decided to take the average of Rotten Tomatoes scores instead, which gave the following breakdown: 
+![](images/ratings_bins_average.png)
+
+In the first runs of the model, we noticed that the model was only ever predicting losses. Therefore, we increased the class weights to ensure that the model was predicting at least one Best Picture win. We ran some hyperparameter optimization to ensure that we were picking the class weights with the highest test accuracy. 
+
+However, even with these improvements, our best any-win model coefficient was 0.023. When the model was allowed to predict no wins, its regression coefficient was 0.028. This tells us that Rotten Tomatoes critic score is not a strong predictor of a Best Picture Oscars win. 
+
+The highest any-win model test accuracy we saw was 83.3%, while the no-win model was 84.3%. This tells us that predicting no wins at all leads to higher performance with this model architecture. 
+
+To improve these results, you might need to choose a more complicated model than logistic regression, or add in other explanatory variables. 
 
 ### Question 2:
 
