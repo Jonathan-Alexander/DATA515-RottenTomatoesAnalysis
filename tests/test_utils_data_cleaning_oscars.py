@@ -92,7 +92,6 @@ class TestUtilsDataCleaningOscars(unittest.TestCase):
 
         for data in dfs_to_test:
             input_df =pd.DataFrame(data)
-            print(data)
             self.assertRaises(ValidationException, cleaner_oscars._validate, input_df)
 
 

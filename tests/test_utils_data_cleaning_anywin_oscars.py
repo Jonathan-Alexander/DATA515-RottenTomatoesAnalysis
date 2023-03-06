@@ -59,21 +59,15 @@ class TestUtilsDataCleaningAnyWinOscars(unittest.TestCase):
 
         for data, exp_output in dfs_to_test:
             flag = False
+
             input_df =pd.DataFrame(data)
             cleaned = cleaner_aw_oscars._clean(input_df)
-
-            print("***Cleaned***")
-            print(cleaned)
-
             exp_output_df = pd.DataFrame(exp_output)
-            print("expected output df")
-            print(exp_output_df)
-
             clean_flag = cleaned.equals(exp_output_df)
-
             self.assertTrue(clean_flag)
-
+            
             cleaner_aw_oscars._validate(cleaned)
+
             flag = True
 
             self.assertTrue(flag)
