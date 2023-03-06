@@ -46,7 +46,7 @@ class RegressionAnalysis:
 
         self.col_indexes = None
         self.random_state = 123
-        self.col_indexes = [i for i in range(0, len(self.X.columns))]
+        self.col_indexes = list(range(0, len(self.X.columns)))
 
         if is_categorical:
             self.model_ = LogisticRegression(class_weight=class_weights)
