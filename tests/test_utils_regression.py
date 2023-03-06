@@ -119,5 +119,21 @@ class TestRegressionAnalysis(unittest.TestCase):
         y_pred = reg.predict([[10], [11], [12]])
         self.assertTrue(np.array_equal(np.rint(y_pred), [[11], [12], [13]]))
 
+class TestCorrelationAnalysis(unittest.TestCase):
+    """
+    Class to test the rotten_tomatoes.utils.regression.py CorrelationAnalysis class
+    """
         
-        
+    def test_correlationanalysis_oneshot(self):
+        d = pd.DataFrame({'a':[1, 2, 3, 4, 5], 'b': [5, 4, 3, 2, 1]})
+        corr = CorrelationAnalysis(d)
+        self.assertIsInstance(corr, CorrelationAnalysis)
+        self.assertAlmostEqual(corr.corr_coef('a', 'b'), -1)
+
+    def test_correlationanalysis_matrix(self):
+        d = pd.DataFrame({'a':[1, 2, 3, 4, 5], 'b': [5, 4, 3, 2, 1]})
+        corr = CorrelationAnalysis(d)
+        self.assertIsInstance(corr, CorrelationAnalysis)
+        self.assertTrue(np.array_equal(corr.corr_matrix(), [[1, -1], [-1, 1]]))
+
+
