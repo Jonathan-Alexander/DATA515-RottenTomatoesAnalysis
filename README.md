@@ -92,6 +92,7 @@ The analysis contained in this repository only scratches the surface of what can
 └── .gitignore
 └── environment.yml
 └── __init__.py
+└── .coveragerc
 ```
 
 
