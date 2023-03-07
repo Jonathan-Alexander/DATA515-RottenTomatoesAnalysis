@@ -78,6 +78,7 @@ The analysis contained in this repository only scratches the surface of what can
 |       ├── data_download.py
 |       ├── regression.py
 |   ├── data_cleaning.py
+|   ├── data_download.py
 |   ├── q1_modeling.ipynb
 |   ├── q2_modeling.ipynb
 |   └── __init__.py
@@ -90,6 +91,7 @@ The analysis contained in this repository only scratches the surface of what can
 └── setup.py
 └── .gitignore
 └── environment.yml
+└── __init__.py
 ```
 
 
