@@ -62,7 +62,8 @@ The analysis contained in this repository only scratches the surface of what can
 |   ├── rotten_tomatoes_critic_reviews.csv
 |   ├── rotten_tomatoes_movies.csv
 |   ├── the_oscar_award.csv
-|   └── full_data.csv
+|   ├── best_picture_data.csv
+|   └── any_win_data.csv
 ├── doc
 |   ├── img
 |       ├── Data_Flow_Pipeline.png
