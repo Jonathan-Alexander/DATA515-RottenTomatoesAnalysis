@@ -9,7 +9,7 @@
 * RESULT: updates local environment to match project environment
 
 ## Step 3: Navigate to Root
-* $ cd DATA515-RottenTomatoesAnalysis/rotten-tomatoes
+* $ cd DATA515-RottenTomatoesAnalysis/rotten_tomatoes
 * RESULT: navigates to root directory of project
 
 ## Step 4: Download the Data
