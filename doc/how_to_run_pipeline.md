@@ -25,7 +25,9 @@
 
 ## Step 5: Clean the Data
 * $ python data_cleaning.py
-    * RESULT: cleans and joins 3 datasets into full_data.csv in data directory
+    * RESULT: cleans and joins 3 Kaggle datasets into 2 cleaned datasets for analysis in data directory:
+      * any_win_data.csv
+      * best_picture_data.csv
 
 ## Step 6: Initialize the Jupyter Notebooks
 * q1_modeling.ipynb - Historically, how well have rotten tomatoes critic scores correlated with “Best movie” Oscar wins?
