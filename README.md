@@ -69,9 +69,16 @@ The analysis contained in this repository only scratches the surface of what can
 |       ├── Data_Flow_Pipeline.png
 |   ├── component_specification.md
 |   ├── functional_specification.md
-|   ├── how_to_run_pipeline.md
 |   └── milestones.md
+├── examples
+|   ├── how_to_run_pipeline.md
 ├── images
+|   ├── american_beauty_scores.png
+|   ├── heatmap.png
+|   ├── oscar_success_review_score_fit.png
+|   ├── oscar_wins_review_score_fit.png
+|   ├── ratings_bins_all.png
+|   ├── ratings_bins_average.png
 ├── rotten_tomatoes
 |   ├── utils
 |       ├── __init__.py
