@@ -60,17 +60,15 @@
 
 # Use Cases: 
 ## View model results
-1. User navigates to github repository 
-2. User views research results in main README of github repository. The README explains each of the questions and provides supporting graphs for the answers. 
+1. [View research results here](https://github.com/Jonathan-Alexander/DATA515-RottenTomatoesAnalysis/blob/main/Results.pdf)
 
 ## Review code that produced results 
-1. User navigates to github repository 
-2. Main README has a hyperlinked table of contents that provides quick links to code. 
-3. User clicks on the link to the code they want to examine
-4. User downloads repository and reviews the code. 
+1. Navigate to github repository 
+2. [View Jupyter Notebook for question 1 here](https://github.com/Jonathan-Alexander/DATA515-RottenTomatoesAnalysis/blob/main/rotten_tomatoes/q1_modeling.ipynb) 
+3. [View Jupyter Notebook for question 2 here](https://github.com/Jonathan-Alexander/DATA515-RottenTomatoesAnalysis/blob/main/rotten_tomatoes/q2_modeling.ipynb)
 
 ## Rerun entire pipeline to refresh results 
-1. User navigates to github repository
-2. User reviews process documentation in README file under “rotten_tomatoes” folder
-3. User follows this process to rerun code. 
-4. User pushes results to github. 
+1. Navigate to github repository
+2. [Review process documentation here](https://github.com/Jonathan-Alexander/DATA515-RottenTomatoesAnalysis/blob/main/examples/how_to_run_pipeline.md#how-to-run-the-pipeline)
+3. Follow this process to rerun code. 
+4. Push results to github. 
