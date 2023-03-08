@@ -1,21 +1,14 @@
 # Rotten Tomatoes Analysis Project
-This project uses logistic regression models and statistical analysis methods to investigate the relationship between Rotten Tomatoes review scores and Oscar wins.
-
-## Project Overview
-
-### What data was used in this analysis?
-[Rotten Tomatoes Dataset](https://www.kaggle.com/datasets/stefanoleone992/rotten-tomatoes-movies-and-critic-reviews-dataset?select=rotten_tomatoes_movies.csv)  
-
-[Oscars Dataset](https://www.kaggle.com/datasets/unanimad/the-oscar-award)
-
-### What questions does this analysis address? 
+This project uses logistic regression models and statistical analysis methods to investigate the relationship between Rotten Tomatoes review scores and Oscar wins. It focuses on two main research questions:
 1. Historically, how well have rotten tomatoes critic scores correlated with “Best picture” Oscar wins? 
 2. Historically, are rotten tomatoes ratings good predictors of wins in any category at the Oscars?
 
-### What are the possible use cases for this analysis?
+## Repository Guide
+
+### What are the possible use cases for this repository?
 [Use Cases](https://github.com/Jonathan-Alexander/DATA515-RottenTomatoesAnalysis/blob/main/doc/functional_specification.md#use-cases)
 
-### How do I re-run this pipeline? 
+### How do I re-run the analysis pipeline? 
 [How to Run the Pipeline](https://github.com/Jonathan-Alexander/DATA515-RottenTomatoesAnalysis/blob/main/examples/how_to_run_pipeline.md#how-to-run-the-pipeline)
 
 ### Where can I find the final analysis?
@@ -23,36 +16,13 @@ This project uses logistic regression models and statistical analysis methods to
 
 [Question 2](https://github.com/Jonathan-Alexander/DATA515-RottenTomatoesAnalysis/blob/main/rotten_tomatoes/q2_modeling.ipynb)
 
-## Results 
-### Question 1:  
-To find the answer to the question "Historically, how well have Rotten Tomatoes scores correlated with best picture Oscar wins?", we ran a simple logistic regression of critic rotten tomatoes score to best picture wins. When plotting the data, you see that many winning movies have low Oscar scores. 
-![](images/ratings_bins_all.png)
+### Where can I find the results?
+[LINK]
 
-It seemed like there might be an outlier issue, with even very popular movies getting low ratings from a few critics. For example, here are the critic ratings for the film "American Beauty", which won the best picture Oscar in 1999. 
-![](images/american_beauty_scores.png)
+### What data is used in this analysis?
+[Rotten Tomatoes Dataset](https://www.kaggle.com/datasets/stefanoleone992/rotten-tomatoes-movies-and-critic-reviews-dataset?select=rotten_tomatoes_movies.csv)  
 
-So we decided to take the average of Rotten Tomatoes scores instead, which gave the following breakdown: 
-![](images/ratings_bins_average.png)
-
-In the first runs of the model, we noticed that the model was only ever predicting losses. Therefore, we increased the class weights to ensure that the model was predicting at least one Best Picture win. We ran some hyperparameter optimization to ensure that we were picking the class weights with the highest test accuracy. 
-
-However, even with these improvements, our best any-win model coefficient was 0.023. When the model was allowed to predict no wins, its regression coefficient was 0.028. This tells us that Rotten Tomatoes critic score is not a strong predictor of a Best Picture Oscars win. 
-
-The highest any-win model test accuracy we saw was 83.3%, while the no-win model was 84.3%. This tells us that predicting no wins at all leads to higher performance with this model architecture. 
-
-To improve these results, you might need to choose a more complicated model than logistic regression, or add in other explanatory variables. 
-
-### Question 2:
-
-## Ideas for Future Work
-The analysis contained in this repository only scratches the surface of what can be discovered with this data. Here are some potential questions for future research:
- * Which Oscar award most strongly correlates with Rotten Tomatoes scores?
- * Is there an interaction effect between genre and Rotten Tomatoes score on Oscar wins?
- * How closely do audience scores correlate with critic scores?
- * Historically, which critics have most accurately predicted Oscar success?
- * How do outside factors (budget, box office sales, etc.) affect Oscar win probability?
-
-
+[Oscars Dataset](https://www.kaggle.com/datasets/unanimad/the-oscar-award)
 
 ## File Structure
 
