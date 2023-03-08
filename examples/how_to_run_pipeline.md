@@ -1,6 +1,6 @@
 # How to Run the Pipeline
 
-## Step 1: Clone the Repository
+## Step 1: Clone Repository
 * $ git clone https://github.com/Jonathan-Alexander/DATA515-RottenTomatoesAnalysis
 * RESULT: clones git repository into local environment
 
@@ -17,7 +17,7 @@
 * $ cd rotten_tomatoes
 * RESULT: navigates to root directory of project
 
-## Step 5: Download the Data
+## Step 5: Download Data
 * $ python data_download.py:
     * NOTE: The following requirements must be satisfied before running download_data.py:
         * Pre-Requisite 1: kaggle installed in local environment. Installation instructions included here: https://www.kaggle.com/docs/api
@@ -28,20 +28,20 @@
    * rotten_tomatoes_movies.csv
    * the_oscar_award.scv
 
-## Step 6: Clean the Data
+## Step 6: Clean Data
 * $ python data_cleaning.py
     * RESULT: cleans and joins 3 Kaggle datasets into 2 cleaned datasets for analysis in data directory:
       * any_win_data.csv
       * best_picture_data.csv
 
-## Step 7: Initialize the Jupyter Notebooks
+## Step 7: Initialize Jupyter Notebook(s)
 * q1_modeling.ipynb - Historically, how well have rotten tomatoes critic scores correlated with “Best movie” Oscar wins?
     * $ jupyter notebook q1_modeling.ipynb
 * q2_modeling.ipynb - Historically, are rotten tomatoes ratings good predictors of wins in any category at the Oscars?
     * $ jupyter notebook q2_modeling.ipynb
 * RESULT: opens jupyter notebook on local machine to be rerun or modified
 
-## Step 8: Run the Code
+## Step 8: Run Code
 * Once the notebook of interest is open, run all cells to obtain updated model
 
 ## Step 9: Push New Results to Git Repository
