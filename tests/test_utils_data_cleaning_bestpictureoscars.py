@@ -84,7 +84,7 @@ class TestUtilsDataCleaningBestPictureOscars(unittest.TestCase):
             self.assertTrue(flag)
 
     # Edge tests
-    @unittest.skip("revisit")
+    #@unittest.skip("revisit")
     def test_validate_edge(self):
         """Passes if Validation  Exeption thrown by _validate_rating_col """
 
