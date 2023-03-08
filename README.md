@@ -16,7 +16,7 @@ This project uses logistic regression models and statistical analysis methods to
 [Use Cases](https://github.com/Jonathan-Alexander/DATA515-RottenTomatoesAnalysis/blob/main/doc/functional_specification.md#use-cases)
 
 ### How do I re-run this pipeline? 
-[How to Run the Pipeline](https://github.com/Jonathan-Alexander/DATA515-RottenTomatoesAnalysis/blob/main/doc/how_to_run_pipeline.md#how-to-run-the-pipeline)
+[How to Run the Pipeline](https://github.com/Jonathan-Alexander/DATA515-RottenTomatoesAnalysis/blob/main/examples/how_to_run_pipeline.md#how-to-run-the-pipeline)
 
 ### Where can I find the final analysis?
 [Question 1](https://github.com/Jonathan-Alexander/DATA515-RottenTomatoesAnalysis/blob/main/rotten_tomatoes/q1_modeling.ipynb)  
