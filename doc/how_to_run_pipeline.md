@@ -14,14 +14,14 @@
 
 ## Step 4: Download the Data
 * $ python data_download.py:
-    * RESULT: downloads 3 kaggle datasets to data directory:
-        * rotten_tomatoes_critic_reviews.csv
-        * rotten_tomatoes_movies.csv
-        * the_oscar_award.scv
     * NOTE: The following requirements must be satisfied before running download_data.py:
         * Pre-Requisite 1: kaggle installed in local environment. Installation instructions included here: https://www.kaggle.com/docs/api
         * Pre-Requisite 2a: kaggle.json file created using the instructions included in the Authentication section of this website: https://www.kaggle.com/docs/api
-        * Pre-Requisite 2b: Save the kaggle.json file. Can be saved in the rotten_tomatoes folder, or anywhere on local machine. ().gitignore file includes rotten_tomatoes/kaggle.json)
+        * Pre-Requisite 2b: Save the kaggle.json file to the rotten_tomatoes directory. If stored elsewhere on local machine, update the path to the file in the get_kaggle_creds input on line 8 of data_download.py. ().gitignore file includes rotten_tomatoes/kaggle.json.
+* RESULT: downloads 3 kaggle datasets to data directory:
+   * rotten_tomatoes_critic_reviews.csv
+   * rotten_tomatoes_movies.csv
+   * the_oscar_award.scv
 
 ## Step 5: Clean the Data
 * $ python data_cleaning.py
