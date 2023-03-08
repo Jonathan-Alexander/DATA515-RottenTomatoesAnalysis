@@ -78,14 +78,14 @@ class RegressionAnalysis:
             y_train - train outputs
             y_test - test outputs
         """
-        if(test_size == 0):
+        if test_size == 0:
             X_train = X_test = X
             y_train = y_test = y
         else:
             X_train, X_test, y_train, y_test = train_test_split(
                 X, y, test_size=test_size, random_state=random_state
             )
-            
+ 
         X_train = X_train.to_numpy()
         X_test = X_test.to_numpy()
         y_train = y_train.to_numpy()
@@ -192,10 +192,10 @@ class CorrelationAnalysis:
             None
         """
         fig = sns.heatmap(self.corr_matrix(subset).round(2), annot=True, vmax=1, vmin=-1)
-        
+
         if file_name is not None:
             fig.get_figure().savefig(f'../images/{file_name}')
-            
+
     def corr_coef(self, a: str, b: str) -> float:
         """
         Provides the correlation coefficient between two variables in the dataset
@@ -205,7 +205,6 @@ class CorrelationAnalysis:
             b - The other variable
         """
         return self.data[a].corr(self.data[b])
-
 
 def plot_linear_fit(X, y_pred, y_test, x_label = None, y_label = None, title = None, output_filename = None):
     """
@@ -221,17 +220,17 @@ def plot_linear_fit(X, y_pred, y_test, x_label = None, y_label = None, title = N
     plt.scatter(X, y_test, color="black", label='True Label')
     plt.scatter(X, y_pred, color="blue", label='Predicted Label', marker=".")
     plt.legend(loc="upper left")
-    
+
     if x_label is not None:
         plt.xlabel(x_label)
-        
+
     if y_label is not None:
         plt.ylabel(y_label)
-        
+
     if title is not None:
         plt.title(title)
-        
+
     if output_filename is not None:
         plt.savefig(f"../images/{output_filename}")
-        
+
     plt.show()
