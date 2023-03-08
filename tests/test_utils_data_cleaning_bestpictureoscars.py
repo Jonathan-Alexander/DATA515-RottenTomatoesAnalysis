@@ -25,7 +25,6 @@ class TestUtilsDataCleaningBestPictureOscars(unittest.TestCase):
         self.assertIsInstance(BestPictureOscarsDataCleaner(), OscarsDataCleaner)
 
     # One shot tests (base tests)
-    #@unittest.skip("need to edit")
     def test_clean_validate_bestpictureoscars(self):
         """Test passes if the _clean function removes rows with values other then the ones
         included in best_picture_categores in the category column """
@@ -84,7 +83,6 @@ class TestUtilsDataCleaningBestPictureOscars(unittest.TestCase):
             self.assertTrue(flag)
 
     # Edge tests
-    #@unittest.skip("revisit")
     def test_validate_edge(self):
         """Passes if Validation  Exeption thrown by _validate_rating_col """
 

@@ -51,7 +51,6 @@ class TestUtilsDataCleaningOscars(unittest.TestCase):
             input_df =pd.DataFrame(data)
             self.assertEqual(cleaner_oscars._clean(input_df).shape[0], numrows)
     
-    #@unittest.skip("need to update")
     def test_validate_movies(self):
         """Passes if no error thrown by _validate"""
 
@@ -72,7 +71,6 @@ class TestUtilsDataCleaningOscars(unittest.TestCase):
         self.assertTrue(flag)
 
     # Edge tests
-    #@unittest.skip("need to update")
     def test_validate_edge(self):
         """Passes if Validation  Exeption thrown by _validate_rating_col """
 

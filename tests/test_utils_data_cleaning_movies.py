@@ -71,7 +71,6 @@ class TestUtilsDataCleaningMovies(unittest.TestCase):
         self.assertTrue(flag)
 
     # Edge tests
-
     def test_validate_edge(self):
         """Passes if Validation  Exeption thrown by _validate_rating_col """
 

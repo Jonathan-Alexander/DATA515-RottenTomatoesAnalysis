@@ -179,12 +179,5 @@ class TestUtilsDataCleaningCritics(unittest.TestCase):
             input_df =pd.DataFrame(data)
             self.assertRaises(ValidationException, cleaner._validate, input_df)
 
-
-
-
-
-
-
-
 if __name__ == "__main__":
     unittest.main()
