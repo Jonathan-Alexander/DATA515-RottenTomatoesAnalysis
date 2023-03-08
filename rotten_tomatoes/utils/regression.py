@@ -85,7 +85,7 @@ class RegressionAnalysis:
             X_train, X_test, y_train, y_test = train_test_split(
                 X, y, test_size=test_size, random_state=random_state
             )
- 
+
         X_train = X_train.to_numpy()
         X_test = X_test.to_numpy()
         y_train = y_train.to_numpy()
@@ -206,7 +206,13 @@ class CorrelationAnalysis:
         """
         return self.data[a].corr(self.data[b])
 
-def plot_linear_fit(X, y_pred, y_test, x_label = None, y_label = None, title = None, output_filename = None):
+def plot_linear_fit(X,
+        y_pred,
+        y_test,
+        x_label = None,
+        y_label = None,
+        title = None,
+        output_filename = None):
     """
     Makes a scatter plot of fit between predicted and actual y.
 
