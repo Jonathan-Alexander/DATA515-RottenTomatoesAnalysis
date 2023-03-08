@@ -8,11 +8,16 @@
 * $ conda env update -f environment.yml
 * RESULT: updates local environment to match project environment
 
-## Step 3: Navigate to Root
-* $ cd DATA515-RottenTomatoesAnalysis/rotten_tomatoes
+## Step 3: Install Environment
+* $ cd DATA515-RottenTomatoesAnalysis
+* $ pip install -e.
+* RESULT: Installs packages and runs setup.py
+
+## Step 4: Navigate to Root
+* $ cd rotten_tomatoes
 * RESULT: navigates to root directory of project
 
-## Step 4: Download the Data
+## Step 5: Download the Data
 * $ python data_download.py:
     * NOTE: The following requirements must be satisfied before running download_data.py:
         * Pre-Requisite 1: kaggle installed in local environment. Installation instructions included here: https://www.kaggle.com/docs/api
@@ -23,23 +28,23 @@
    * rotten_tomatoes_movies.csv
    * the_oscar_award.scv
 
-## Step 5: Clean the Data
+## Step 6: Clean the Data
 * $ python data_cleaning.py
     * RESULT: cleans and joins 3 Kaggle datasets into 2 cleaned datasets for analysis in data directory:
       * any_win_data.csv
       * best_picture_data.csv
 
-## Step 6: Initialize the Jupyter Notebooks
+## Step 7: Initialize the Jupyter Notebooks
 * q1_modeling.ipynb - Historically, how well have rotten tomatoes critic scores correlated with “Best movie” Oscar wins?
     * $ jupyter notebook q1_modeling.ipynb
 * q2_modeling.ipynb - Historically, are rotten tomatoes ratings good predictors of wins in any category at the Oscars?
     * $ jupyter notebook q2_modeling.ipynb
 * RESULT: opens jupyter notebook on local machine to be rerun or modified
 
-## Step 7: Run the Code
+## Step 8: Run the Code
 * Once the notebook of interest is open, run all cells to obtain updated model
 
-## Step 8: Push New Results to Git Repository
+## Step 9: Push New Results to Git Repository
 * $ git add q1_modeling.ipynb (or whichever notebook has been rerun or modified)
 * $ git commit q1_modeling.ipynb
 * $ git push
