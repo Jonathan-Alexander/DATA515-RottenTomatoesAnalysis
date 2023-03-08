@@ -5,10 +5,10 @@ This project uses logistic regression models and statistical analysis methods to
 
 ## Repository Guide
 
-### What are the possible use cases for this repository?
+### What can I do with this repository?
 [Use Cases](https://github.com/Jonathan-Alexander/DATA515-RottenTomatoesAnalysis/blob/main/doc/functional_specification.md#use-cases)
 
-### How do I re-run the analysis pipeline? 
+### How do I re-run the data analysis pipeline? 
 [How to Run the Pipeline](https://github.com/Jonathan-Alexander/DATA515-RottenTomatoesAnalysis/blob/main/examples/how_to_run_pipeline.md#how-to-run-the-pipeline)
 
 ### Where can I find the final analysis?
