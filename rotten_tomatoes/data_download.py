@@ -4,8 +4,10 @@ from utils.data_download import (  # pylint: disable=E0401
     get_kaggle_creds,
     download_kaggle_datasets,
 )
+# pylint: disable=C0103
+kaggle_json_file_loc = "rotten_tomatoes/kaggle.json"
 
-username, password = get_kaggle_creds("rotten_tomatoes/kaggle.json")
+username, password = get_kaggle_creds(kaggle_json_file_loc)
 # pylint: disable=C0103
 output_loc = "data/"
 

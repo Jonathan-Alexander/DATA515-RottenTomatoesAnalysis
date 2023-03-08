@@ -226,6 +226,8 @@ class BestPictureOscarsDataCleaner(OscarsDataCleaner):
 
     def _validate(self, data: pd.DataFrame) -> None:
         super()._validate(data)
+        if any(data["winner"].isna()):
+            raise ValidationException("NAs found in winner categories! Review.")
         # Assert no duplicate years of winners
         winner_years = data.loc[data["winner"], "year_film"]
         value_counts = winner_years.value_counts().reset_index()
@@ -233,8 +235,7 @@ class BestPictureOscarsDataCleaner(OscarsDataCleaner):
             raise ValidationException(
                 "More than one best picture winner found in a given year!"
             )
-        if data.loc[data["winner"].isna()].shape[0] > 0:
-            raise ValidationException("NAs found in winner categories! Review.")
+
 
 
 class AnyWinOscarsDataCleaner(OscarsDataCleaner):
