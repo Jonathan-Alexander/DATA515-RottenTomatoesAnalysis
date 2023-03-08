@@ -46,7 +46,6 @@ class RegressionAnalysis:
 
         self.col_indexes = None
         self.random_state = 123
-        self.col_indexes = list(range(0, len(self.X.columns)))
 
         if is_categorical:
             self.model_ = LogisticRegression(class_weight=class_weights)
@@ -59,6 +58,8 @@ class RegressionAnalysis:
             self.y_train_,
             self.y_test_,
         ) = self._train_test_split(self.X, self.y, self.random_state, self.test_size)
+
+        self.col_indexes = list(range(0, self.X_train_.shape[1]))
 
     def _train_test_split(
         self, X: pd.DataFrame, y: pd.DataFrame, random_state: int, test_size: float
