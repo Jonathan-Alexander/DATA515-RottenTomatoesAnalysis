@@ -46,6 +46,7 @@ class RegressionAnalysis:
 
         self.col_indexes = None
         self.random_state = 123
+        self.col_indexes = list(range(0, len(self.X.columns)))
 
         if is_categorical:
             self.model_ = LogisticRegression(class_weight=class_weights)
@@ -77,9 +78,14 @@ class RegressionAnalysis:
             y_train - train outputs
             y_test - test outputs
         """
-        X_train, X_test, y_train, y_test = train_test_split(
-            X, y, test_size=test_size, random_state=random_state
-        )
+        if(test_size == 0):
+            X_train = X_test = X
+            y_train = y_test = y
+        else:
+            X_train, X_test, y_train, y_test = train_test_split(
+                X, y, test_size=test_size, random_state=random_state
+            )
+            
         X_train = X_train.to_numpy()
         X_test = X_test.to_numpy()
         y_train = y_train.to_numpy()
@@ -176,7 +182,7 @@ class CorrelationAnalysis:
 
         return self.data.corr()
 
-    def plot_heatmap(self, subset: list[str] = None) -> None:
+    def plot_heatmap(self, subset: list[str] = None, file_name = None) -> None:
         """
         Displays a heatmap of the correlation matrix
 
@@ -185,8 +191,11 @@ class CorrelationAnalysis:
         Returns:
             None
         """
-        sns.heatmap(self.corr_matrix(subset).round(2), annot=True, vmax=1, vmin=-1)
-
+        fig = sns.heatmap(self.corr_matrix(subset).round(2), annot=True, vmax=1, vmin=-1)
+        
+        if file_name is not None:
+            fig.get_figure().savefig(f'../images/{file_name}')
+            
     def corr_coef(self, a: str, b: str) -> float:
         """
         Provides the correlation coefficient between two variables in the dataset
@@ -198,7 +207,7 @@ class CorrelationAnalysis:
         return self.data[a].corr(self.data[b])
 
 
-def plot_linear_fit(X, y_pred, y_test):
+def plot_linear_fit(X, y_pred, y_test, x_label = None, y_label = None, title = None, output_filename = None):
     """
     Makes a scatter plot of fit between predicted and actual y.
 
@@ -209,6 +218,20 @@ def plot_linear_fit(X, y_pred, y_test):
 
     Returns: None
     """
-    plt.scatter(X, y_test, color="black")
-    plt.scatter(X, y_pred, color="blue", marker=".")
+    plt.scatter(X, y_test, color="black", label='True Label')
+    plt.scatter(X, y_pred, color="blue", label='Predicted Label', marker=".")
+    plt.legend(loc="upper left")
+    
+    if x_label is not None:
+        plt.xlabel(x_label)
+        
+    if y_label is not None:
+        plt.ylabel(y_label)
+        
+    if title is not None:
+        plt.title(title)
+        
+    if output_filename is not None:
+        plt.savefig(f"../images/{output_filename}")
+        
     plt.show()
