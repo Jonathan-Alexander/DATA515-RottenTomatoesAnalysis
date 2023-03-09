@@ -5,11 +5,11 @@
 * RESULT: clones git repository into local environment
 
 ## Step 2: Set up Virtual Environment
+* $ cd DATA515-RottenTomatoesAnalysis
 * $ conda env update -f environment.yml
 * RESULT: updates local environment to match project environment
 
 ## Step 3: Install Environment
-* $ cd DATA515-RottenTomatoesAnalysis
 * $ pip install -e.
 * RESULT: Installs packages and runs setup.py
 
