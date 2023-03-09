@@ -5,6 +5,11 @@ This project uses logistic regression models and statistical analysis methods to
 
 ## Repository Guide
 
+### What data is used in this analysis?
+[Rotten Tomatoes Dataset](https://www.kaggle.com/datasets/stefanoleone992/rotten-tomatoes-movies-and-critic-reviews-dataset?select=rotten_tomatoes_movies.csv)  
+
+[Oscars Dataset](https://www.kaggle.com/datasets/unanimad/the-oscar-award)
+
 ### What can I do with this repository?
 [Use Cases](https://github.com/Jonathan-Alexander/DATA515-RottenTomatoesAnalysis/blob/main/doc/functional_specification.md#use-cases)
 
@@ -19,10 +24,8 @@ This project uses logistic regression models and statistical analysis methods to
 ### Where can I find the results?
 [Results](https://github.com/Jonathan-Alexander/DATA515-RottenTomatoesAnalysis/blob/main/Results.pdf)
 
-### What data is used in this analysis?
-[Rotten Tomatoes Dataset](https://www.kaggle.com/datasets/stefanoleone992/rotten-tomatoes-movies-and-critic-reviews-dataset?select=rotten_tomatoes_movies.csv)  
-
-[Oscars Dataset](https://www.kaggle.com/datasets/unanimad/the-oscar-award)
+### Where can I find in depth component and functional documentation?
+[Documentation](https://github.com/Jonathan-Alexander/DATA515-RottenTomatoesAnalysis/tree/main/doc)
 
 ## File Structure
 
