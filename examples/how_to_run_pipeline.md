@@ -5,11 +5,11 @@
 * RESULT: clones git repository into local environment
 
 ## Step 2: Set up Virtual Environment
+* $ cd DATA515-RottenTomatoesAnalysis
 * $ conda env update -f environment.yml
 * RESULT: updates local environment to match project environment
 
 ## Step 3: Install Environment
-* $ cd DATA515-RottenTomatoesAnalysis
 * $ pip install -e.
 * RESULT: Installs packages and runs setup.py
 
@@ -34,12 +34,11 @@
       * any_win_data.csv
       * best_picture_data.csv
 
-## Step 7: Initialize Jupyter Notebook(s)
+## Step 7: Initialize Jupyter Notebook
 * q1_modeling.ipynb - Historically, how well have rotten tomatoes critic scores correlated with “Best movie” Oscar wins?
-    * $ jupyter notebook q1_modeling.ipynb
 * q2_modeling.ipynb - Historically, are rotten tomatoes ratings good predictors of wins in any category at the Oscars?
-    * $ jupyter notebook q2_modeling.ipynb
-* RESULT: opens jupyter notebook on local machine to be rerun or modified
+* $ jupyter notebook
+* RESULT: opens jupyter notebook locally 
 
 ## Step 8: Run Code
 * Once the notebook of interest is open, run all cells to obtain updated model

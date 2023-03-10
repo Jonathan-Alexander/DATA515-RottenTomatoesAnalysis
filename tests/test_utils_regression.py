@@ -3,9 +3,11 @@ import os
 import json
 import pandas as pd
 import numpy as np
+from unittest import mock
 from sklearn.linear_model import LinearRegression, LogisticRegression
 
 from rotten_tomatoes.utils.regression import RegressionAnalysis, CorrelationAnalysis
+from rotten_tomatoes.utils import regression as regression
 
 class TestRegressionAnalysis(unittest.TestCase):
     """
@@ -89,9 +91,11 @@ class TestRegressionAnalysis(unittest.TestCase):
         y = [0, 0]
         x_df = pd.DataFrame(x)
         y_df = pd.DataFrame(y)
-        reg = RegressionAnalysis(x_df, y_df, False, test_size = 0.5)
+        reg = RegressionAnalysis(x_df.a, y_df, False, test_size = 0.5)
         reg.fit_train()
 
+        self.assertEqual(reg.X_train_.ndim, 2)
+        self.assertEqual(reg.X_test_.ndim, 2)
         self.assertIsNotNone(reg.model_.coef_)
 
     def test_regressionanalysis_fit(self):
@@ -128,6 +132,24 @@ class TestRegressionAnalysis(unittest.TestCase):
         y_pred = reg.predict([[10], [11], [12]])
         self.assertTrue(np.array_equal(np.rint(y_pred), [[11], [12], [13]]))
 
+    def test_regressionanalysis_notest(self):
+        """Tests using 0 test_size in RegressionAnalysis"""
+        x = pd.DataFrame([1, 2, 3, 4, 5])
+        y = pd.DataFrame([2, 3, 4, 5, 6])
+        reg = RegressionAnalysis(x, y, False, test_size = 0)
+
+        self.assertTrue(np.array_equal(reg.X_train_, reg.X_test_))
+        self.assertTrue(np.array_equal(reg.y_train_, reg.y_test_))
+
+    def test_regressionanalysis_scoretest(self):
+        """Tests scoring agains the test set"""
+        x = pd.DataFrame([1, 2, 3, 4, 5])
+        y = pd.DataFrame([2, 3, 4, 5, 6])
+        reg = RegressionAnalysis(x, y, False, test_size = 0)
+        reg.fit_train()
+
+        self.assertEqual(reg.score_test(), 1)
+
 class TestCorrelationAnalysis(unittest.TestCase):
     """
     Class to test the rotten_tomatoes.utils.regression.py CorrelationAnalysis class
@@ -146,5 +168,28 @@ class TestCorrelationAnalysis(unittest.TestCase):
         corr = CorrelationAnalysis(d)
         self.assertIsInstance(corr, CorrelationAnalysis)
         self.assertTrue(np.array_equal(corr.corr_matrix(), [[1, -1], [-1, 1]]))
+
+    def test_correlationanalysis_subsetmatrix(self):
+        """Tests correlation matrix with a subset of cols"""
+        d = pd.DataFrame({'a':[1, 2, 3, 4, 5], 'b': [5, 4, 3, 2, 1], 'c': [1, 2, 3, 4, 5]})
+        corr = CorrelationAnalysis(d)
+        self.assertIsInstance(corr, CorrelationAnalysis)
+        self.assertTrue(np.array_equal(corr.corr_matrix(subset=['a', 'b']), [[1, -1], [-1, 1]]))
+
+class TestRegression(unittest.TestCase):
+    """
+    Class to test the general methods of RegressionAnalysis
+    """
+
+    @mock.patch("%s.regression.plt" % __name__)
+    def test_regression_plotlinfit(self, mock_plt):
+       x = [0, 1]
+       y_pred = [1, 2]
+       y = [1, 2]
+
+       regression.plot_linear_fit(x, y_pred, y)
+       self.assertTrue(mock_plt.show.called)
+       regression.plot_linear_fit(x, y_pred, y, x_label = "TEST", y_label = "TEST", title="TEST")
+       self.assertTrue(mock_plt.show.called)
 
 
