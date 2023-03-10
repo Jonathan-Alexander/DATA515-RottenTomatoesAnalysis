@@ -1,0 +1,15 @@
+Unittests incorporated with CI do not include testing for utils.data_download.download_kaggle_datasets function. 
+
+The download_kaggle_dataset function contains the code to use the Kaggle API to download datasets to the repo. We attempted to create a mock object, but ran into issues related to running the kaggleapi import statement. 
+
+For the kaggle api import statement to work, either the kaggle.json file needs to be saved in a specific location on the local machine (reference Kaggle API documentation), or environment variables need to be set with a kaggle username and api key. This would essentially require hard coding the username and api key, which would defeat the point of using the mock object.
+
+Kaggle API Documentation
+https://www.kaggle.com/docs/api
+Reference from Kaggle documentation: "the tool will look for this
+token at ~/.kaggle/kaggle.json on Linux, OSX, and other UNIX-based operating systems, and at C:\Users<Windows-username>.kaggle\kaggle.json on Windows"
+
+
+We decided to not test this API function repeatedly based on how long each test takes to execute. We removed as much code as possible from the utils.data_download.download_kaggle_datasets function, and tested sparingly from a local machine.
+
+Unittests for utils.data_download.download_kaggle_datasets will work from a local machine after the kaggle.json file is saved to the local machine and the location of this file is passed to the download_kaggle_datasets function in the rotten_tomatoes/data_download file. 

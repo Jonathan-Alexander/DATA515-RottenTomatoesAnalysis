@@ -1,8 +1,8 @@
 """
-Runs a smoke test, multiple one shot tests and multiple edge tests
-for the functions imported from utils.data_cleaning module
+Runs a smoke test, multiple one shot tests and an edge test
+for the functions imported from utils.data_cleaning.MoviesDataCleaner class
 
-test_utils_data_cleaning does not export any classes, exceptions, or functions
+test_utils_data_cleaning_movies does not export any classes, exceptions, or functions
 """
 
 
@@ -17,7 +17,7 @@ from rotten_tomatoes.utils.data_cleaning import ( # pylint: disable=E0401
 
 
 class TestUtilsDataCleaningMovies(unittest.TestCase):
-    """ A class used to test the rotten_tomatoes.utils.data_cleaning module """
+    """ A class used to test the rotten_tomatoes.utils.data_cleaning.MoviesDataCleaner class """
 
     # Smoke test
     def test_smoke_cleaner(self):
@@ -26,7 +26,8 @@ class TestUtilsDataCleaningMovies(unittest.TestCase):
 
     # One shot tests (base tests)
     def test_clean_movies(self):
-        """Test passes if the _clean function removes rows with None in the review_score column """
+        """Test passes if the _clean function removes rows with None
+        in the audience rating and tomatometer_rating columns """
         cleaner_movies = MoviesDataCleaner()
 
         dfs_to_test = [
@@ -49,14 +50,12 @@ class TestUtilsDataCleaningMovies(unittest.TestCase):
 
         for data, numrows in dfs_to_test:
             input_df =pd.DataFrame(data)
-            self.assertEqual(cleaner_movies._clean(input_df).shape[0], numrows)
+            self.assertEqual(cleaner_movies._clean(input_df).shape[0], numrows) # pylint: disable=W0212
 
     def test_validate_movies(self):
         """Passes if no error thrown by _validate"""
 
         cleaner_movies = MoviesDataCleaner()
-
-        flag = False
 
         df_to_test = {'rotten_tomatoes_link': [1, 2, 3],
              'movie_title': ["ABC123", "Gone with the Wind", 6],
@@ -64,15 +63,16 @@ class TestUtilsDataCleaningMovies(unittest.TestCase):
              'audience_rating': [98.0, 85.0, 100.0]
             }
 
-        input_df =pd.DataFrame(df_to_test)
-        cleaner_movies._validate(input_df)
+        try:
+            input_df =pd.DataFrame(df_to_test)
+            cleaner_movies._validate(input_df) # pylint: disable=W0212
+        except Exception: # pylint: disable=W0703
+            self.fail("Exception raised unexpectedly!")
 
-        flag = True
-        self.assertTrue(flag)
 
     # Edge tests
     def test_validate_edge(self):
-        """Passes if Validation  Exeption thrown by _validate_rating_col """
+        """Passes if Validation  Exeption thrown by _validate """
 
         cleaner_movies = MoviesDataCleaner()
 
@@ -116,8 +116,7 @@ class TestUtilsDataCleaningMovies(unittest.TestCase):
 
         for data in dfs_to_test:
             input_df =pd.DataFrame(data)
-            self.assertRaises(ValidationException, cleaner_movies._validate, input_df)
-
+            self.assertRaises(ValidationException, cleaner_movies._validate, input_df) # pylint: disable=W0212
 
 if __name__ == "__main__":
     unittest.main()

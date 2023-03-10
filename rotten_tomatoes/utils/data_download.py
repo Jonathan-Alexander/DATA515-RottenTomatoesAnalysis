@@ -12,7 +12,7 @@ Pre-Requisite 2b: Save the kaggle.json file. Can be saved in the rotten_tomatoes
 or anywhere on local machine. ().gitignore file includes rotten_tomatoes/kaggle.json)
 
 
-data_download exports the following functions:
+utils. data_download exports the following functions:
     get_kaggle_creds
     validate_kaggle_dataset_list
     download_kaggle_datasets
@@ -103,6 +103,7 @@ def download_kaggle_datasets(username, password, kaggle_dataset_list, file_outpu
 
 
     """
+
     os.environ["KAGGLE_USERNAME"] = username
     os.environ["KAGGLE_KEY"] = password
 
@@ -135,5 +136,3 @@ def download_kaggle_datasets(username, password, kaggle_dataset_list, file_outpu
                 "\nEither the username/dataset in the kaggle_dataset_list is incorrect "
                 "or the username and password is incorrect. Please check both."
             )
-
-    return True
