@@ -49,6 +49,7 @@ def get_kaggle_creds(kaggle_json_file_loc):
 
     return username, password
 
+
 def validate_kaggle_dataset_list(kaggle_dataset_list):
     """Validates username/dataset format for every string in kaggle_dataset_list
 
@@ -67,10 +68,10 @@ def validate_kaggle_dataset_list(kaggle_dataset_list):
     """
     # Check each kaggle_dataset in the kaggle_dataset_list for username/dataset format
     for kaggle_dataset in kaggle_dataset_list:
-
         if not isinstance(kaggle_dataset, str):
-            raise AttributeError(f"Oops! the kaggle_dataset parameter {kaggle_dataset}"
-                                 "is not a string")
+            raise AttributeError(
+                f"Oops! the kaggle_dataset parameter {kaggle_dataset}" "is not a string"
+            )
         split_kaggle_dataset = kaggle_dataset.split("/")
 
         if (len(split_kaggle_dataset)) != 2:
@@ -78,6 +79,7 @@ def validate_kaggle_dataset_list(kaggle_dataset_list):
                 f"Oops! the kaggle_dataset parameter {kaggle_dataset}"
                 "needs to be in the format username/dataset"
             )
+
 
 def download_kaggle_datasets(username, password, kaggle_dataset_list, file_output):
     """Downloads all files from kaggle_dataset_list to the file_output location

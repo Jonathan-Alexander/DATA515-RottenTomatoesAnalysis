@@ -183,7 +183,7 @@ class CorrelationAnalysis:
 
         return self.data.corr()
 
-    def plot_heatmap(self, subset: list[str] = None, file_name = None) -> None:
+    def plot_heatmap(self, subset: list[str] = None, file_name=None) -> None:
         """
         Displays a heatmap of the correlation matrix
 
@@ -192,10 +192,12 @@ class CorrelationAnalysis:
         Returns:
             None
         """
-        fig = sns.heatmap(self.corr_matrix(subset).round(2), annot=True, vmax=1, vmin=-1)
+        fig = sns.heatmap(
+            self.corr_matrix(subset).round(2), annot=True, vmax=1, vmin=-1
+        )
 
         if file_name is not None:
-            fig.get_figure().savefig(f'../images/{file_name}')
+            fig.get_figure().savefig(f"../images/{file_name}")
 
     def corr_coef(self, a: str, b: str) -> float:
         """
@@ -207,13 +209,10 @@ class CorrelationAnalysis:
         """
         return self.data[a].corr(self.data[b])
 
-def plot_linear_fit(X,
-        y_pred,
-        y_test,
-        x_label = None,
-        y_label = None,
-        title = None,
-        output_filename = None):
+
+def plot_linear_fit(
+    X, y_pred, y_test, x_label=None, y_label=None, title=None, output_filename=None
+):
     """
     Makes a scatter plot of fit between predicted and actual y.
 
@@ -224,8 +223,8 @@ def plot_linear_fit(X,
 
     Returns: None
     """
-    plt.scatter(X, y_test, color="black", label='True Label')
-    plt.scatter(X, y_pred, color="blue", label='Predicted Label', marker=".")
+    plt.scatter(X, y_test, color="black", label="True Label")
+    plt.scatter(X, y_pred, color="blue", label="Predicted Label", marker=".")
     plt.legend(loc="upper left")
 
     if x_label is not None:
