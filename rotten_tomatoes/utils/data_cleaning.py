@@ -19,10 +19,16 @@ class DataCleaner:
     keep_columns = None
 
     def __init__(self):
-        pass
+        """Initialize a DataCleaner class."""
 
     def run(self) -> pd.DataFrame():
-        """Runs all data loading and cleaning steps."""
+        """
+        Runs all data loading and cleaning steps.
+
+        Returns:
+        -------
+        Pandas DataFrame of cleaned, validated data
+        """
         data = self._read()
         data = self._clean(data)
         self._validate(data)
@@ -30,17 +36,47 @@ class DataCleaner:
         return data
 
     def _read(self) -> pd.DataFrame:
+        """Read raw csv. Not implemented in base class."""
         raise NotImplementedError()
 
     def _clean(self, data: pd.DataFrame) -> pd.DataFrame:
+        """Read raw csv. Not implemented in base class."""
         raise NotImplementedError()
 
     def _validate(self, data: pd.DataFrame) -> None:
+        """
+        Validate data.
+
+        Parameters:
+        ----------
+        data: pd.DataFrame
+            DataFrame to validate.
+
+        Raises:
+        ------
+        ValidationException if a required column is missing from data.
+        """
         for col in self.keep_columns:
             if col not in data:
                 raise ValidationException(f"Missing {col} from data!")
 
     def _validate_rating_col(self, data: pd.DataFrame, col: str) -> None:
+        """
+        Helper function for common utility, validating a float column.
+
+        Parameters:
+        ----------
+        data: pd.DataFrame
+            Input data to validate.
+        col: str
+            Column to validate. Must be in data.
+
+        Raises:
+        ------
+        ValidationException if col is not in data.
+        ValidationException if there are null values in col in data.
+        ValidationException if any values in col cannot be converted to float.
+        """
         if col not in data.columns:
             raise ValidationException(f"Column {col} not available in passed data!")
         if data.loc[data[col].isna()].shape[0] > 0:
@@ -61,11 +97,25 @@ class CriticsDataCleaner(DataCleaner):
     ]
 
     def _read(self) -> pd.DataFrame:
+        """Read input dataframe, and subset to required columns."""
         data = pd.read_csv("./data/rotten_tomatoes_critic_reviews.csv")
         return data[self.keep_columns]
 
     def _validate_single_score(self, score: float, original_score: str) -> float:
-        """If score > 100, cap at 100."""
+        """
+        If score > 100, cap at 100.
+
+        Parameters:
+        ----------
+        score: float
+            Score to validate.
+        original_score: str
+            Original score, for logging purposes.
+
+        Returns:
+        --------
+        float value of corrected score.
+        """
         if score > 100:
             print(
                 f"Score greater than 100! Current score is {score}, ",
@@ -75,7 +125,18 @@ class CriticsDataCleaner(DataCleaner):
         return score
 
     def _clean_single_score(self, score: str) -> Optional[float]:
-        """Cleans a single score to a 0-100 scale."""
+        """
+        Cleans a single score to a 0-100 scale.
+
+        Parameters:
+        ----------
+        score: str
+            String score to clean.
+
+        Returns:
+        -------
+        Either float if score can be cleaned, else None.
+        """
         original_score = score  # For logging
 
         # Correct a few scores manually.
@@ -134,10 +195,21 @@ class CriticsDataCleaner(DataCleaner):
 
     def _clean(self, data: pd.DataFrame) -> pd.DataFrame:
         """
+        Cleans Oscars critic scores dataset.
+
+        Cleaning steps are:
         1.) Subset to the columns we care about
         2.) Because we only care about the numerical rating, drop any observations where
             rating is null.
         3.) Standardize review scores.
+
+        Parameters:
+        ----------
+        data: pd.DataFrame
+
+        Returns:
+        -------
+        Cleaned pandas dataframe.
         """
         data = data.loc[~data["review_score"].isna()]
 
@@ -154,8 +226,15 @@ class CriticsDataCleaner(DataCleaner):
 
     def _validate(self, data: pd.DataFrame) -> None:
         """
+        Validates critics oscars dataset.
+        Validation steps are:
         1.) Assert no null values in reviews
         2.) Assert the 'keep_columns' are in the data
+
+        Parameters:
+        ----------
+        data: pd.DataFrame
+            Data to validate
         """
         super()._validate(data)
         self._validate_rating_col(data, "review_score")
@@ -172,19 +251,26 @@ class MoviesDataCleaner(DataCleaner):
     ]
 
     def _read(self) -> pd.DataFrame:
+        """Read input dataframe, and subset to required columns."""
         data = pd.read_csv("./data/rotten_tomatoes_movies.csv")
         return data[self.keep_columns]
 
     def _clean(self, data: pd.DataFrame) -> pd.DataFrame:
-        """Clean data."""
+        """Clean Oscars movies dataset. Drop observations that are NA."""
         data = data.loc[~data["tomatometer_rating"].isna()]
         data = data.loc[~data["audience_rating"].isna()]
         return data
 
     def _validate(self, data: pd.DataFrame) -> None:
         """
+        Validate moves dataset. Steps are:
         1.) Assert no null values in tomatometer or audience rating
         2.) Assert all rating columns between 0-100
+
+        Parameters:
+        ----------
+        data: pd.DataFrame
+            Data to validate
         """
         super()._validate(data)
         self._validate_rating_col(data, "tomatometer_rating")
@@ -192,16 +278,17 @@ class MoviesDataCleaner(DataCleaner):
 
 
 class OscarsDataCleaner(DataCleaner):
-    """Clean Oscars dataset."""
+    """Base class for cleaning Oscars data."""
 
     keep_columns = ["year_film", "category", "film", "winner"]
 
     def _read(self) -> pd.DataFrame:
+        """Read in Oscars csv."""
         data = pd.read_csv("./data/the_oscar_award.csv")
         return data[self.keep_columns]
 
     def _clean(self, data: pd.DataFrame) -> pd.DataFrame:
-        # Drop any NaNs in winner column
+        """Drop any observations where winner is NA."""
         data = data.loc[~data["winner"].isna()]
         return data
 
@@ -210,6 +297,18 @@ class BestPictureOscarsDataCleaner(OscarsDataCleaner):
     """Produce a dataset of best-picture winners."""
 
     def _clean(self, data: pd.DataFrame) -> pd.DataFrame:
+        """
+        Clean raw Oscars data and process best picture column.
+
+        Parameters:
+        -----------
+        data: pd.DataFrame
+            Data to clean.
+
+        Returns:
+        -------
+        Data subset to best picture categories only.
+        """
         data = super()._clean(data)
         # Only keep best-picture winning categories
         best_picture_categories = [
@@ -225,6 +324,23 @@ class BestPictureOscarsDataCleaner(OscarsDataCleaner):
         return data
 
     def _validate(self, data: pd.DataFrame) -> None:
+        """
+        Validates best picture data.
+
+        Parameters:
+        ----------
+        data: pd.DataFrame
+            Data to validate
+
+        Returns:
+        -------
+        None
+
+        Raises:
+        -------
+        ValidationException if NAs found in 'winner' column
+        ValidationException if more than one best picture winner found in a given year.
+        """
         super()._validate(data)
         if any(data["winner"].isna()):
             raise ValidationException("NAs found in winner categories! Review.")
@@ -237,11 +353,11 @@ class BestPictureOscarsDataCleaner(OscarsDataCleaner):
             )
 
 
-
 class AnyWinOscarsDataCleaner(OscarsDataCleaner):
     """Calculates movies with any win from Oscars dataset."""
 
     def _clean(self, data: pd.DataFrame) -> pd.DataFrame:
+        """Generates any win dataset."""
         data = super()._clean(data)
         data["winner"] = data["winner"].astype("int")
         data = data.groupby(["year_film", "film"]).sum("winner").reset_index()
@@ -249,4 +365,4 @@ class AnyWinOscarsDataCleaner(OscarsDataCleaner):
         return data
 
     def _validate(self, data: pd.DataFrame) -> None:
-        pass
+        """Pass validation, because calculated columns are different"""

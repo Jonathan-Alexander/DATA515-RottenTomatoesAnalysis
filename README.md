@@ -6,6 +6,8 @@ This project uses logistic regression models and statistical analysis methods to
 ## Repository Guide
 
 ### What data is used in this analysis?
+This project uses two datasets available on Kaggle, a dataset of Rotten Tomatoes critic reviews and a dataset of all Oscar awards. 
+
 [Rotten Tomatoes Dataset](https://www.kaggle.com/datasets/stefanoleone992/rotten-tomatoes-movies-and-critic-reviews-dataset?select=rotten_tomatoes_movies.csv)  
 
 [Oscars Dataset](https://www.kaggle.com/datasets/unanimad/the-oscar-award)
@@ -76,4 +78,9 @@ This project uses logistic regression models and statistical analysis methods to
 └── .coveragerc
 ```
 
+### License
+This project is licensed under a MIT license. 
 
+### About the project
+This project was created for the University of Washington's DATA 515 course in Winter 2023.
+The authors are Jonathan Alexander, Debbie Davis, Emily Linebarger, and Carolina Mack. 
