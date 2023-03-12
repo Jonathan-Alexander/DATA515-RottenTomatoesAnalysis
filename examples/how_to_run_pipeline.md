@@ -48,8 +48,8 @@ $ pip install -e .
 ## Step 4: Download Kaggle Datasets
 
 - Pre-Requisite 1: Create kaggle.json file using the instructions included in the Authentication section of this website: https://www.kaggle.com/docs/api
-- Pre-Requisite 2: Save the kaggle.json file to the rotten_tomatoes directory.
 
+- Pre-Requisite 2: Save the kaggle.json file to the rotten_tomatoes directory.
   - If the kaggle.json file is not saved in the rotten_tomatoes directory, update the path to the kaggle.json file in the get_kaggle_creds input on line 9 of rotten_tomatoes/data_download.py.
   - .gitignore file includes rotten_tomatoes/kaggle.json
 
@@ -107,13 +107,13 @@ $ pip install -e .
 ## Step 7: Run Code
 
 - Once the notebook of interest is open, run all cells to obtain updated model
+- **RESULT** Images with model results published to images directory
 
 <br>
 
 ## Step 8: Update Results
 
-- Manually update the information included in Results.pdf
-- Manually update images in the images/ directory
+- Manually update the information included in Results file, including copying images from the images directory into the Results file
 
 <br>
 
