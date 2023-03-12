@@ -118,8 +118,11 @@ $ pip install -e .
 <br>
 
 ## Step 9: Push New Results to Git Repository
+- Execute the following from the command line:
 
-- $ git add q1_modeling.ipynb (or whichever notebook has been rerun or modified)
-- $ git commit q1_modeling.ipynb
-- $ git push
+```
+$ git add q1_modeling.ipynb (or whichever notebook has been modified)
+$ git commit q1_modeling.ipynb
+$ git push
+```
 - RESULT: updated results published to git repository
