@@ -24,9 +24,7 @@ This project uses two datasets available on Kaggle, a dataset of Rotten Tomatoes
 [Question 2](https://github.com/Jonathan-Alexander/DATA515-RottenTomatoesAnalysis/blob/main/rotten_tomatoes/q2_modeling.ipynb)
 
 ### Where can I find the results?
-[Download the results document here](https://github.com/Jonathan-Alexander/DATA515-RottenTomatoesAnalysis/blob/main/Results.docx)
-
-[View up-to-date model visualizations here](https://github.com/Jonathan-Alexander/DATA515-RottenTomatoesAnalysis/tree/main/images)
+[View the results here](https://github.com/Jonathan-Alexander/DATA515-RottenTomatoesAnalysis/blob/main/Results.md#rotten-tomatoes-and-the-oscars-a-data-analysis-project)
 
 ### Where can I find in depth component and functional documentation?
 [Documentation](https://github.com/Jonathan-Alexander/DATA515-RottenTomatoesAnalysis/tree/main/doc)
