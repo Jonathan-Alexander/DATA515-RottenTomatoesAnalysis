@@ -65,7 +65,8 @@ It includes inline comments to explain the cleaning process to more technical us
 
 ### Outputs:
 
-- full_data.csv
+- any_win_data.csv
+- best_picture_data.csv
 
 ### Assumptions:
 
@@ -84,11 +85,11 @@ Reads in the prepared dataset from data_cleaning.py, and creates a logistic regr
 
 ### Inputs:
 
-- full_data.csv
+- best_picture_data.csv
 
 ### Outputs:
 
-Images to the images/ folder that will be used in top-level README
+Images to the images/ folder that will be used in Results pdf
 
 ### Assumptions:
 
@@ -107,11 +108,12 @@ Reads in the prepared dataset from data_cleaning.py, and creates a logistic regr
 
 ### Inputs:
 
-- full_data.csv
+- any_win_data.csv
+- best_picture_data.csv
 
 ### Outputs:
 
-Images to the images/ folder that will be used in top-level README
+Images to the images/ folder that will be used in Results pdf
 
 ### Assumptions:
 
@@ -122,36 +124,12 @@ Images to the images/ folder that will be used in top-level README
 
 ### Name:
 
-rotten_tomatoes/q3_modeling.ipynb
+Results.pdf
 
 ### What it does:
 
-Reads in the prepared dataset from data_cleaning.py, and creates a multinomial logistic regression model to answer question 3.
-
-### Inputs:
-
-- full_data.csv
-
-### Outputs:
-
-Images to the images/ folder that will be used in top-level README
-
-### Assumptions:
-
-- The file is being called from the root of the repository
-- data_cleaning.py has already been run.
-
-## Component 7
-
-### Name:
-
-README.md
-
-### What it does:
-
-- Contains modeling results from three modeling notebooks
-- Shows a high-level table of contents for the repository
-- Instructs the user where to navigate to find the results they want
+- Contains modeling results from two modeling notebooks
+- Contains ideas for further analysis
 
 ### Inputs:
 
@@ -164,6 +142,29 @@ None
 ### Assumptions:
 
 - The expected files are in the images/ folder.
+
+## Component 7
+
+### Name:
+
+README.md
+
+### What it does:
+
+- Shows a high-level table of contents for the repository
+- Instructs the user where to navigate to find the results they want
+
+### Inputs:
+
+None
+
+### Outputs:
+
+None
+
+### Assumptions:
+
+None
 
 ## Component 8
 
