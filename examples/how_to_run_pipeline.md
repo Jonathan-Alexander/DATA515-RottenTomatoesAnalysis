@@ -1,50 +1,125 @@
 # How to Run the Pipeline
 
 ## Step 1: Clone Repository
-* $ git clone https://github.com/Jonathan-Alexander/DATA515-RottenTomatoesAnalysis
-* RESULT: clones git repository into local environment
+
+- Execute the following from the command line
+
+```
+$ git clone https://github.com/Jonathan-Alexander/DATA515-RottenTomatoesAnalysis
+```
+
+- **RESULT:** clones git repository into local environment
+
+<br>
 
 ## Step 2: Set up Virtual Environment
-* $ cd DATA515-RottenTomatoesAnalysis
-* $ conda env update -f environment.yml
-* RESULT: updates local environment to match project environment
 
-## Step 3: Install Environment
-* $ pip install -e.
-* RESULT: Installs packages and runs setup.py
+- Pre-Requisite: Anaconda installed. Installation instructions: https://docs.anaconda.com/anaconda/install/index.html
 
-## Step 4: Navigate to Root
-* $ cd rotten_tomatoes
-* RESULT: navigates to root directory of project
+- Navigate to the cloned directory and update the conda environment by executing the following from the command line
 
-## Step 5: Download Data
-* $ python data_download.py:
-    * NOTE: The following requirements must be satisfied before running download_data.py:
-        * Pre-Requisite 1: kaggle installed in local environment. Installation instructions included here: https://www.kaggle.com/docs/api
-        * Pre-Requisite 2a: kaggle.json file created using the instructions included in the Authentication section of this website: https://www.kaggle.com/docs/api
-        * Pre-Requisite 2b: Save the kaggle.json file to the rotten_tomatoes directory. If stored elsewhere on local machine, update the path to the file in the get_kaggle_creds input on line 8 of data_download.py. ().gitignore file includes rotten_tomatoes/kaggle.json.
-* RESULT: downloads 3 kaggle datasets to data directory:
-   * rotten_tomatoes_critic_reviews.csv
-   * rotten_tomatoes_movies.csv
-   * the_oscar_award.scv
+```
+$ cd DATA515-RottenTomatoesAnalysis
+$ conda env update -f environment.yml
+```
 
-## Step 6: Clean Data
-* $ python data_cleaning.py
-    * RESULT: cleans and joins 3 Kaggle datasets into 2 cleaned datasets for analysis in data directory:
-      * any_win_data.csv
-      * best_picture_data.csv
+- Activate the conda environment by executing the following from the command line
 
-## Step 7: Initialize Jupyter Notebook
-* q1_modeling.ipynb - Historically, how well have rotten tomatoes critic scores correlated with “Best movie” Oscar wins?
-* q2_modeling.ipynb - Historically, are rotten tomatoes ratings good predictors of wins in any category at the Oscars?
-* $ jupyter notebook
-* RESULT: opens jupyter notebook locally 
+```
+$ conda activate rta
+```
 
-## Step 8: Run Code
-* Once the notebook of interest is open, run all cells to obtain updated model
+- **RESULT:** updates local environment to match project environment
+
+<br>
+
+## Step 3: Install rotten_tomatoes
+
+- Execute the following from the command line
+
+```
+$ pip install -e .
+```
+
+- **RESULT:** Installs packages and runs setup.py
+
+<br>
+
+## Step 4: Download Kaggle Datasets
+
+- Pre-Requisite 1: Create kaggle.json file using the instructions included in the Authentication section of this website: https://www.kaggle.com/docs/api
+- Pre-Requisite 2: Save the kaggle.json file to the rotten_tomatoes directory.
+
+  - If the kaggle.json file is not saved in the rotten_tomatoes directory, update the path to the kaggle.json file in the get_kaggle_creds input on line 9 of rotten_tomatoes/data_download.py.
+  - .gitignore file includes rotten_tomatoes/kaggle.json
+
+- Optional changes to rotten_tomatoes/data_download.py
+
+  - Change datasets to download from Kaggle by changing the values in the kaggle_dataset_list variable in the rotten_tomatoes/data_download.py file
+
+- Execute the following from the command line
+
+  ```
+  $ python rotten_tomatoes/data_download.py
+  ```
+
+- **RESULT:** downloads 3 kaggle datasets to data directory:
+  - rotten_tomatoes_critic_reviews.csv
+  - rotten_tomatoes_movies.csv
+  - the_oscar_award.scv
+
+<br>
+
+## Step 5: Clean Data
+
+- Note: If the output_loc variable on line 17 of rotten_tomatoes/data_download.py was changed, the read methods in rotten_tomatoes_utils/data_cleaning.py will also need to be updated.
+
+  - Example: If the output_loc variable was changed to "data/temp", the data variable in the read method of the CriticsDataCleaner class would need to be changed to:
+
+    ```
+    data = pd.read_csv("./data/temp/rotten_tomatoes_critic_reviews.csv")
+    ```
+
+- Execute the following from the command line
+  ```
+  $ python rotten_tomatoes/data_cleaning.py
+  ```
+- **RESULT:** cleans and joins 3 Kaggle datasets into 2 cleaned datasets for analysis in data directory:
+  - any_win_data.csv
+  - best_picture_data.csv
+
+<br>
+
+## Step 6: Open Jupyter Notebook
+
+- Note: Ensure the rta environment is activated before opening jupyter notebook
+- Execute the following from the command line
+  ```
+  $ jupyter notebook
+  ```
+- Once jupyter notebook opens, navigate to the following jupyter notebooks in the rotten_tomatoes directory:
+  - q1_modeling.ipynb - Historically, how well have rotten tomatoes critic scores correlated with “Best movie” Oscar wins?
+  - q2_modeling.ipynb - Historically, are rotten tomatoes ratings good predictors of wins in any category at the Oscars?
+- **RESULT**: opens jupyter notebook locally
+
+<br>
+
+## Step 7: Run Code
+
+- Once the notebook of interest is open, run all cells to obtain updated model
+
+<br>
+
+## Step 8: Update Results
+
+- Manually update the information included in Results.pdf
+- Manually update images in the images/ directory
+
+<br>
 
 ## Step 9: Push New Results to Git Repository
-* $ git add q1_modeling.ipynb (or whichever notebook has been rerun or modified)
-* $ git commit q1_modeling.ipynb
-* $ git push
-* RESULT: updated results published to git repository
+
+- $ git add q1_modeling.ipynb (or whichever notebook has been rerun or modified)
+- $ git commit q1_modeling.ipynb
+- $ git push
+- RESULT: updated results published to git repository

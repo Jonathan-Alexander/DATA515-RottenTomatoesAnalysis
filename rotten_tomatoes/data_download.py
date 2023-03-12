@@ -25,3 +25,5 @@ kaggle_dataset_list = [
 
 # Download the dataset(s) from Kaggle
 download_kaggle_datasets(username, password, kaggle_dataset_list, output_loc)
+
+print(f"Data successfully downloaded to the following directory {output_loc}")
