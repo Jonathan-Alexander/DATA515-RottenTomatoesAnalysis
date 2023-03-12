@@ -29,13 +29,13 @@ It seemed like there might be an outlier issue, with even very popular movies ge
 
 
 <p align="center">
-    <img width="370" height="300" src=https://github.com/Jonathan-Alexander/DATA515-RottenTomatoesAnalysis/blob/main/images/american_beauty_scores.png?raw=true>
+    <img width="460" height="300" src=https://github.com/Jonathan-Alexander/DATA515-RottenTomatoesAnalysis/blob/main/images/american_beauty_scores.png?raw=true>
 </p>
 
 So we decided to take the average of Rotten Tomatoes scores instead, which gave the following breakdown:
 
 <p align="center">
-  <img width="370" alt="bins" src="https://user-images.githubusercontent.com/122406312/224567283-6e53ff4b-232d-426a-b9a8-8e9da7b6dc51.png">
+  <img width="460" height="300" alt="bins" src="https://user-images.githubusercontent.com/122406312/224567283-6e53ff4b-232d-426a-b9a8-8e9da7b6dc51.png">
 </p>
 
 In the first runs of the model, we noticed that the model was only ever predicting losses. Therefore, we increased the class weights to ensure that the model was predicting at least one Best Picture win. We ran some hyperparameter optimization to ensure that we were picking the class weights with the highest test accuracy. 
@@ -52,7 +52,7 @@ To answer this second question we first define “Oscars success”. We defined 
 success in two ways. Firstly, winning an award at the Oscars, this definition is simply true or false depending on if the film won any award at the Oscars. Secondly, we defined success in terms of the number of awards a film won at the Oscars, with more awards being more success.
 
 <p align="center">
-  <img width="370" alt="boxplot" src="https://user-images.githubusercontent.com/122406312/224567289-e3c28fcf-dd76-4a45-8966-098846f362cd.png">
+  <img width="460" height="300"alt="boxplot" src="https://user-images.githubusercontent.com/122406312/224567289-e3c28fcf-dd76-4a45-8966-098846f362cd.png">
 </p>
 
 Looking at the distribution of ratings across levels of Oscar’s success it initially appeared as though Rotten Tomatoes critic reviews may be predictive of Oscar’s success.
@@ -60,25 +60,25 @@ Looking at the distribution of ratings across levels of Oscar’s success it ini
 With these definitions we conducted correlation and regression analysis. Looking at our correlation analysis we found that the average critic score was not highly correlated with either the number of awards won nor general success. Below is a heatmap showing this analysis as well as a few other metrics we investigated.
 
 <p align="center">
-  <img width="370" alt="Heatmap" src="https://user-images.githubusercontent.com/122406312/224566980-8a1ec6ac-be6f-4f90-a834-df77bed91b69.png">
+  <img width="460" height="300" alt="Heatmap" src="https://user-images.githubusercontent.com/122406312/224566980-8a1ec6ac-be6f-4f90-a834-df77bed91b69.png">
 </p>
 
 We then investigated a causal relationship between Rotten Tomatoes scores and Oscars success along the same two definitions. To do this we utilized linear regression analysis. Below is a plot of the linear fit between average critic rating and the number of awards a movie won at the Oscars. 
 
 <p align="center">
- <img width="370" height="300" src=https://raw.githubusercontent.com/Jonathan-Alexander/DATA515-RottenTomatoesAnalysis/main/images/oscar_wins_review_score_fit.png>
+ <img width="460" height="300"src=https://raw.githubusercontent.com/Jonathan-Alexander/DATA515-RottenTomatoesAnalysis/main/images/oscar_wins_review_score_fit.png>
 </p>
 
 As we can see, the fit is not strong(R = 0.045). This agrees with the results of the correlation analysis. Looking closer at the fit we can see that all of the movies winning more than two awards are not covered by the fit. This is seemingly due to the large number of movies that won no awards at all ranges of the rating scale. Our other definition of success (wining any award at the Oscars) showed similar results.
 
 <p align="center">
-  <img width="370" height="300" src=https://raw.githubusercontent.com/Jonathan-Alexander/DATA515-RottenTomatoesAnalysis/main/images/oscar_success_review_score_fit.png>
+  <img width="460" height="300" src=https://raw.githubusercontent.com/Jonathan-Alexander/DATA515-RottenTomatoesAnalysis/main/images/oscar_success_review_score_fit.png>
 </p>
 
 In investigating the predictive power of Rotten Tomatoes scores we also considered audience ratings in addition to critic ratings.  We followed the same methodology and obtained the following fit for the number of awards won by a movie.
 
 <p align="center">
-  <img width="376" alt="Audience Score" src="https://user-images.githubusercontent.com/122406312/224566816-fa332525-937f-4854-a994-1fe43de60e52.png">
+  <img width="460" height="300" alt="Audience Score" src="https://user-images.githubusercontent.com/122406312/224566816-fa332525-937f-4854-a994-1fe43de60e52.png">
 </p>
 
 
