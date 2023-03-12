@@ -124,7 +124,7 @@ Images to the images/ folder that will be used in Results pdf
 
 ### Name:
 
-Results.pdf
+Results file
 
 ### What it does:
 

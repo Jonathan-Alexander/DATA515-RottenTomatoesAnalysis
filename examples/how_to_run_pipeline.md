@@ -48,9 +48,11 @@ $ pip install -e .
 ## Step 4: Download Kaggle Datasets
 
 - Pre-Requisite 1: Create kaggle.json file using the instructions included in the Authentication section of this website: https://www.kaggle.com/docs/api
+
 - Pre-Requisite 2: Save the kaggle.json file to the rotten_tomatoes directory.
 
   - If the kaggle.json file is not saved in the rotten_tomatoes directory, update the path to the kaggle.json file in the get_kaggle_creds input on line 9 of rotten_tomatoes/data_download.py.
+
   - .gitignore file includes rotten_tomatoes/kaggle.json
 
 - Optional changes to rotten_tomatoes/data_download.py
@@ -98,8 +100,11 @@ $ pip install -e .
   $ jupyter notebook
   ```
 - Once jupyter notebook opens, navigate to the following jupyter notebooks in the rotten_tomatoes directory:
+
   - q1_modeling.ipynb - Historically, how well have rotten tomatoes critic scores correlated with “Best movie” Oscar wins?
+
   - q2_modeling.ipynb - Historically, are rotten tomatoes ratings good predictors of wins in any category at the Oscars?
+
 - **RESULT**: opens jupyter notebook locally
 
 <br>
@@ -107,22 +112,38 @@ $ pip install -e .
 ## Step 7: Run Code
 
 - Once the notebook of interest is open, run all cells to obtain updated model
+- **RESULT** Images with model results published to images directory
 
 <br>
 
 ## Step 8: Update Results
 
-- Manually update the information included in Results.pdf
-- Manually update images in the images/ directory
+- Manually update the information included in Results file, including copying images from the images directory into the Results file
 
 <br>
 
 ## Step 9: Push New Results to Git Repository
+
 - Execute the following from the command line:
 
+- Pre-Requisite 1: Request permission from GitHub repo owner to push changes to the repository
+
+- Pre-Requisite 2: GitHub command line configured. Reference GitHub documentation for more information: https://docs.github.com/en/github-cli/github-cli/quickstart
+
+- Execute the following from the command line, replace the values inside the {} with the appropriate file name. (Make sure to delete the {} characters)
+
 ```
-$ git add q1_modeling.ipynb (or whichever notebook has been modified)
+$ git add {modified_notebook}
+$ git commit {q1_modeling.ipynb}
+$ git push
+```
+
+- Example: updating q1_modeling.ipynb
+
+```
+$ git add q1_modeling.ipynb
 $ git commit q1_modeling.ipynb
 $ git push
 ```
-- RESULT: updated results published to git repository
+
+- **RESULT:** updated results published to git repository
