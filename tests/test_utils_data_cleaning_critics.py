@@ -106,6 +106,8 @@ class TestUtilsDataCleaningCritics(unittest.TestCase):
 
         cleaner = CriticsDataCleaner()
 
+        flag = False
+
         df_to_test = {'rotten_tomatoes_link': [1, 2, 3],
              'critic_name': [4, 5, 6],
              'top_critic': [7, 8, 9],
@@ -114,11 +116,11 @@ class TestUtilsDataCleaningCritics(unittest.TestCase):
             }
 
         input_df =pd.DataFrame(df_to_test)
+        cleaner._validate(input_df) # pylint: disable=W0212
 
-        try:
-            cleaner._validate(input_df) # pylint: disable=W0212
-        except Exception: # pylint: disable=W0703
-            self.fail("Exception raised unexpectedly!")
+        flag = True
+        self.assertTrue(flag)
+
 
     # Edge tests
     def test_single_score_edge_critics(self):

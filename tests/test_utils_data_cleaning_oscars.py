@@ -56,17 +56,21 @@ class TestUtilsDataCleaningOscars(unittest.TestCase):
 
         cleaner_oscars = OscarsDataCleaner()
 
+        flag = False
+
         df_to_test = {'year_film': [1995, 2018, 2008],
              'category': ["Best Picture", "Best Actress", "Best Motion Picture"],
              'film':["ABC123", "Some Movie", 6],
              'winner': [1.0, 3.0, 1.0]
             }
 
-        try:
-            input_df =pd.DataFrame(df_to_test)
-            cleaner_oscars._validate(input_df) # pylint: disable=W0212
-        except Exception: # pylint: disable=W0703
-            self.fail("Exception raised unexpectedly!")
+
+        input_df =pd.DataFrame(df_to_test)
+        cleaner_oscars._validate(input_df) # pylint: disable=W0212
+
+        flag = True
+        self.assertTrue(flag)
+
 
     # Edge test
     def test_validate_edge(self):

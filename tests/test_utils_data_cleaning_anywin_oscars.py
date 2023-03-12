@@ -58,16 +58,19 @@ class TestUtilsDataCleaningAnyWinOscars(unittest.TestCase):
         ]
 
         for data, exp_output in dfs_to_test:
+            flag = False
 
-            try:
-                input_df =pd.DataFrame(data)
-                cleaned = cleaner_aw_oscars._clean(input_df) # pylint: disable=W0212
-                exp_output_df = pd.DataFrame(exp_output)
-                self.assertTrue(cleaned.equals(exp_output_df))
-                cleaner_aw_oscars._validate(cleaned) # pylint: disable=W0212
+            input_df =pd.DataFrame(data)
+            cleaned = cleaner_aw_oscars._clean(input_df) # pylint: disable=W0212
+            exp_output_df = pd.DataFrame(exp_output)
+            self.assertTrue(cleaned.equals(exp_output_df))
+            cleaner_aw_oscars._validate(cleaned) # pylint: disable=W0212
 
-            except Exception: # pylint: disable=W0703
-                self.fail("Exception raised unexpectedly!")
+            flag = True
+
+            self.assertTrue(flag)
+
+
 
 
 if __name__ == "__main__":

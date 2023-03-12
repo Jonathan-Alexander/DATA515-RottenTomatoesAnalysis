@@ -7,7 +7,6 @@ test_utils_data_download does not export any classes, exceptions, or functions
 
 
 import unittest
-from unittest import mock
 import os
 import json
 
@@ -17,7 +16,6 @@ from rotten_tomatoes.utils.data_download import ( # pylint: disable=E0401
     validate_kaggle_dataset_list
 )
 
-@mock.patch.dict(os.environ, {"KAGGLE_USERNAME": "DEFAULT", "KAGGLE_KEY": "DEFAULT"})
 class TestDataDownload(unittest.TestCase):
 
     """
@@ -59,10 +57,13 @@ class TestDataDownload(unittest.TestCase):
             "unanimad/the-oscar-award",
         ]
 
-        try:
-            validate_kaggle_dataset_list(kaggle_dataset_list)
-        except Exception: # pylint: disable=W0703
-            self.fail("Exception raised unexpectedly!")
+        flag = False
+
+        validate_kaggle_dataset_list(kaggle_dataset_list)
+
+        flag = True
+        self.assertTrue(flag)
+
 
 
     def test_get_kaggle_creds_edge1(self):
@@ -112,6 +113,9 @@ class TestDataDownload(unittest.TestCase):
         to the data_download_test_data directory:
         'rotten_tomatoes_critic_reviews.csv', 'rotten_tomatoes_movies.csv', 'the_oscar_award.csv'"""
 
+        os.environ["KAGGLE_USERNAME"] = "DefaultUserName"
+        os.environ["KAGGLE_KEY"] = "DefaultKey"
+
         username, password = get_kaggle_creds("rotten_tomatoes/kaggle.json")
 
         output_loc = "data_download_test_data/"
@@ -135,9 +139,12 @@ class TestDataDownload(unittest.TestCase):
 
     # Edge Tests
     @unittest.skip("Kaggle API key is required to download the data. Time intensive test")
-    def test_download_kaggle_datasets_edge2(self):
-        """download_kaggle_datasets Edge test 2: invalid username/dataset returns 403 error,
+    def test_download_kaggle_datasets_edge1(self):
+        """download_kaggle_datasets Edge test 1: invalid username/dataset returns 403 error,
         passes if download_kaggle_datasets throws a Value Error"""
+
+        os.environ["KAGGLE_USERNAME"] = "DefaultUserName"
+        os.environ["KAGGLE_KEY"] = "DefaultKey"
 
         with open("rotten_tomatoes/kaggle.json", "r", encoding='utf-8') as file:
             data = json.load(file)
@@ -169,9 +176,12 @@ class TestDataDownload(unittest.TestCase):
                  "but valid session cookie. This test will pass if you run "
                  "it by itself, but will fail if you run it in conjunction "
                  "with the other test_download_kaggle_datasets tests")
-    def test_download_kaggle_datasets_edge3(self):
-        """download_kaggle_datasets Edge test 3: invalid username and password combination,
+    def test_download_kaggle_datasets_edge2(self):
+        """download_kaggle_datasets Edge test 2: invalid username and password combination,
         passes if download_kaggle_datasets throws a ValueError"""
+
+        os.environ["KAGGLE_USERNAME"] = "DefaultUserName"
+        os.environ["KAGGLE_KEY"] = "DefaultKey"
 
         username = "madeupusername"
         password = "brokenpassword"

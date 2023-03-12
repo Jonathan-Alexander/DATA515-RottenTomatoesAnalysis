@@ -57,17 +57,20 @@ class TestUtilsDataCleaningMovies(unittest.TestCase):
 
         cleaner_movies = MoviesDataCleaner()
 
+        flag = False
+
         df_to_test = {'rotten_tomatoes_link': [1, 2, 3],
              'movie_title': ["ABC123", "Gone with the Wind", 6],
              'tomatometer_rating':[100.0, 95.0, 85.0],
              'audience_rating': [98.0, 85.0, 100.0]
             }
 
-        try:
-            input_df =pd.DataFrame(df_to_test)
-            cleaner_movies._validate(input_df) # pylint: disable=W0212
-        except Exception: # pylint: disable=W0703
-            self.fail("Exception raised unexpectedly!")
+
+        input_df =pd.DataFrame(df_to_test)
+        cleaner_movies._validate(input_df) # pylint: disable=W0212
+
+        flag = True
+        self.assertTrue(flag)
 
 
     # Edge tests

@@ -69,18 +69,18 @@ class TestUtilsDataCleaningBestPictureOscars(unittest.TestCase):
         ]
 
         for data, numrows in dfs_to_test:
-            try:
-                input_df =pd.DataFrame(data)
-                cleaned = cleaner_bp_oscars._clean(input_df) # pylint: disable=W0212
+            flag = False
+            input_df =pd.DataFrame(data)
+            cleaned = cleaner_bp_oscars._clean(input_df) # pylint: disable=W0212
 
-                self.assertEqual(cleaned.shape[0], numrows)
+            self.assertEqual(cleaned.shape[0], numrows)
 
-                for value in cleaned['category']:
-                    self.assertTrue(value in best_picture_categories)
+            for value in cleaned['category']:
+                self.assertTrue(value in best_picture_categories)
 
-                cleaner_bp_oscars._validate(cleaned) # pylint: disable=W0212
-            except Exception: # pylint: disable=W0703
-                self.fail("Exception raised unexpectedly!")
+            cleaner_bp_oscars._validate(cleaned) # pylint: disable=W0212
+            flag = True
+            self.assertTrue(flag)
 
     # Edge test
     def test_validate_edge(self):
