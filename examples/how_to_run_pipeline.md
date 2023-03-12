@@ -124,6 +124,8 @@ $ pip install -e .
 
 ## Step 9: Push New Results to Git Repository
 
+- Execute the following from the command line:
+
 - Pre-Requisite 1: Request permission from GitHub repo owner to push changes to the repository
 
 - Pre-Requisite 2: GitHub command line configured. Reference GitHub documentation for more information: https://docs.github.com/en/github-cli/github-cli/quickstart
