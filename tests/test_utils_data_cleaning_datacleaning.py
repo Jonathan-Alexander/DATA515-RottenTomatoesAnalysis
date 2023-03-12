@@ -1,10 +1,9 @@
 """
-Runs a smoke test, multiple one shot tests and multiple edge tests
-for the functions imported from utils.data_cleaning.DataCleaning
+Runs a smoke test and a one shot test for the functions imported from
+utils.data_cleaning.DataCleaning class
 
 test_utils_data_cleaning_datacleaning does not export any classes, exceptions, or functions
 """
-
 
 import unittest
 import pandas as pd
@@ -21,20 +20,13 @@ class TestUtilsDataCleaning(unittest.TestCase):
     def test_smoke_cleaner(self):
         """Smoke test passes if the class initializes."""
         self.assertIsInstance(DataCleaner(), DataCleaner)
-        cleaner = DataCleaner()
-    
-    # One shot test
-    # def test_data_cleaner(self):
-    #     try:
-    #         cleaner = DataCleaner()
-    #     except Exception:
-    #         self.fail("myFunc() raised ExceptionType unexpectedly!")
-    #     #self.assertTrue(True)
-    
+
     # One shot test
     def test_read_clean(self):
+        """Edge test passes if the NotImplementedError is thrown
+        for _clean and _read."""
         cleaner = DataCleaner()
-        
+
         df_to_test = {'year_film': [1995, 2018, 2008],
              'category': ["Best Picture", "Best Actress", "Best Motion Picture"],
              'film':["ABC123", "Some Movie", 6],
@@ -42,8 +34,8 @@ class TestUtilsDataCleaning(unittest.TestCase):
             }
 
         data = pd.DataFrame(df_to_test)
-        self.assertRaises(NotImplementedError, cleaner._clean, data)
-        self.assertRaises(NotImplementedError, cleaner._read)
+        self.assertRaises(NotImplementedError, cleaner._clean, data) # pylint: disable=W0212
+        self.assertRaises(NotImplementedError, cleaner._read) # pylint: disable=W0212
 
         with self.assertRaises(NotImplementedError):
             cleaner.run()

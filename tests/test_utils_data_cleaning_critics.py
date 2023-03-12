@@ -1,8 +1,8 @@
 """
 Runs a smoke test, multiple one shot tests and multiple edge tests
-for the functions imported from utils.data_cleaning module
+for the functions imported from utils.data_cleaning.CriticsDataCleaner class
 
-test_utils_data_cleaning does not export any classes, exceptions, or functions
+test_utils_data_cleaning_critics does not export any classes, exceptions, or functions
 """
 
 
@@ -17,7 +17,7 @@ from rotten_tomatoes.utils.data_cleaning import ( # pylint: disable=E0401
 
 
 class TestUtilsDataCleaningCritics(unittest.TestCase):
-    """ A class used to test the rotten_tomatoes.utils.data_cleaning module """
+    """ A class used to test the utils.data_cleaning.CriticsDataCleaner class """
 
     # Smoke test
     def test_smoke_cleaner(self):
@@ -71,7 +71,7 @@ class TestUtilsDataCleaningCritics(unittest.TestCase):
             }
 
         for input_str, output in scores_to_test.items():
-            self.assertEqual(cleaner._clean_single_score(input_str), output)
+            self.assertEqual(cleaner._clean_single_score(input_str), output) # pylint: disable=W0212
 
     def test_clean_critics(self):
         """Test passes if the _clean function removes rows with None in the review_score column """
@@ -99,7 +99,7 @@ class TestUtilsDataCleaningCritics(unittest.TestCase):
 
         for data, numrows in dfs_to_test:
             input_df =pd.DataFrame(data)
-            self.assertEqual(cleaner._clean(input_df).shape[0], numrows)
+            self.assertEqual(cleaner._clean(input_df).shape[0], numrows) # pylint: disable=W0212
 
     def test_validate_critics(self):
         """Passes if no error thrown by cleaner._validate"""
@@ -116,15 +116,16 @@ class TestUtilsDataCleaningCritics(unittest.TestCase):
             }
 
         input_df =pd.DataFrame(df_to_test)
-        cleaner._validate(input_df)
+        cleaner._validate(input_df) # pylint: disable=W0212
 
         flag = True
         self.assertTrue(flag)
 
+
     # Edge tests
     def test_single_score_edge_critics(self):
-        """Test passes if value error is thrown if every value in scores_to_test_for_error
-        is passed to the clenaer._clean_single_score function"""
+        """Test passes if value error is thrown for when every value in scores_to_test_for_error
+        list is passed to the cleaner._clean_single_score function"""
 
         cleaner = CriticsDataCleaner()
 
@@ -137,9 +138,10 @@ class TestUtilsDataCleaningCritics(unittest.TestCase):
         ]
 
         for input_str in scores_to_test_for_error:
-            self.assertRaises(ValueError, cleaner._clean_single_score,input_str)
+            self.assertRaises(ValueError, cleaner._clean_single_score,input_str) # pylint: disable=W0212
+
     def test_validate_edge(self):
-        """Passes if Validation  Exeption thrown by _validate_rating_col """
+        """Passes if Validation Exception thrown by _validate """
 
         cleaner = CriticsDataCleaner()
 
@@ -177,7 +179,7 @@ class TestUtilsDataCleaningCritics(unittest.TestCase):
 
         for data in dfs_to_test:
             input_df =pd.DataFrame(data)
-            self.assertRaises(ValidationException, cleaner._validate, input_df)
+            self.assertRaises(ValidationException, cleaner._validate, input_df) # pylint: disable=W0212
 
 if __name__ == "__main__":
     unittest.main()

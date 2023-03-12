@@ -1,8 +1,8 @@
 """
-Runs a smoke test, multiple one shot tests and multiple edge tests
-for the functions imported from utils.data_cleaning module
+Runs a smoke test and edge test for the functions imported from
+rotten_tomatoes.utils.data_cleaning.BestPictureOscarsDataCleaner class
 
-test_utils_data_cleaning does not export any classes, exceptions, or functions
+test_utils_data_cleaning_bestpictureoscars does not export any classes, exceptions, or functions
 """
 
 
@@ -17,7 +17,8 @@ from rotten_tomatoes.utils.data_cleaning import ( # pylint: disable=E0401
 
 
 class TestUtilsDataCleaningBestPictureOscars(unittest.TestCase):
-    """ A class used to test the rotten_tomatoes.utils.data_cleaning module """
+    """ A class used to test the
+    rotten_tomatoes.utils.data_cleaning.BestPictureOscarsDataCleaner class """
 
     # Smoke test
     def test_smoke_cleaner(self):
@@ -70,21 +71,20 @@ class TestUtilsDataCleaningBestPictureOscars(unittest.TestCase):
         for data, numrows in dfs_to_test:
             flag = False
             input_df =pd.DataFrame(data)
-            cleaned = cleaner_bp_oscars._clean(input_df)
+            cleaned = cleaner_bp_oscars._clean(input_df) # pylint: disable=W0212
 
             self.assertEqual(cleaned.shape[0], numrows)
 
             for value in cleaned['category']:
                 self.assertTrue(value in best_picture_categories)
 
-            cleaner_bp_oscars._validate(cleaned)
+            cleaner_bp_oscars._validate(cleaned) # pylint: disable=W0212
             flag = True
-
             self.assertTrue(flag)
 
-    # Edge tests
+    # Edge test
     def test_validate_edge(self):
-        """Passes if Validation  Exeption thrown by _validate_rating_col """
+        """Passes if Validation Exception thrown by _validate """
 
         cleaner_bp_oscars = BestPictureOscarsDataCleaner()
 
@@ -123,7 +123,7 @@ class TestUtilsDataCleaningBestPictureOscars(unittest.TestCase):
 
         for data in dfs_to_test:
             input_df =pd.DataFrame(data)
-            self.assertRaises(ValidationException, cleaner_bp_oscars._validate, input_df)
+            self.assertRaises(ValidationException, cleaner_bp_oscars._validate, input_df) # pylint: disable=W0212
 
 
 if __name__ == "__main__":

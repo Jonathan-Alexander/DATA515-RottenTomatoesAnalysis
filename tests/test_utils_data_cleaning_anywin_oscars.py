@@ -1,8 +1,8 @@
 """
-Runs a smoke test, multiple one shot tests and multiple edge tests
-for the functions imported from utils.data_cleaning module
+Runs a smoke test and one shot test
+for the functions imported from rotten_tomatoes.utils.data_cleaning.AnyWinOscarsDataCleaner class
 
-test_utils_data_cleaning does not export any classes, exceptions, or functions
+test_utils_data_cleaning_anywin_oscars does not export any classes, exceptions, or functions
 """
 
 
@@ -16,15 +16,15 @@ from rotten_tomatoes.utils.data_cleaning import ( # pylint: disable=E0401
 
 
 class TestUtilsDataCleaningAnyWinOscars(unittest.TestCase):
-    """ A class used to test the rotten_tomatoes.utils.data_cleaning module """
+    """ A class used to test the
+    rotten_tomatoes.utils.data_cleaning.AnyWinOscarsDataCleaner class """
 
     # Smoke test
     def test_smoke_cleaner(self):
         """Smoke test passes if the class initializes."""
         self.assertIsInstance(AnyWinOscarsDataCleaner(), OscarsDataCleaner)
 
-    # One shot tests (base tests)
-    #@unittest.skip("need to edit")
+    # One shot test (base tests)
     def test_clean_validate_anywin_oscars(self):
         """Test passes if the _clean method correctly calculates the num_wins column
         and _verify method executes without errors """
@@ -61,16 +61,16 @@ class TestUtilsDataCleaningAnyWinOscars(unittest.TestCase):
             flag = False
 
             input_df =pd.DataFrame(data)
-            cleaned = cleaner_aw_oscars._clean(input_df)
+            cleaned = cleaner_aw_oscars._clean(input_df) # pylint: disable=W0212
             exp_output_df = pd.DataFrame(exp_output)
-            clean_flag = cleaned.equals(exp_output_df)
-            self.assertTrue(clean_flag)
-            
-            cleaner_aw_oscars._validate(cleaned)
+            self.assertTrue(cleaned.equals(exp_output_df))
+            cleaner_aw_oscars._validate(cleaned) # pylint: disable=W0212
 
             flag = True
 
             self.assertTrue(flag)
+
+
 
 
 if __name__ == "__main__":

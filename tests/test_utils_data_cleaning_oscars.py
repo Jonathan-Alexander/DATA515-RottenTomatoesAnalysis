@@ -1,8 +1,8 @@
 """
-Runs a smoke test, multiple one shot tests and multiple edge tests
-for the functions imported from utils.data_cleaning module
+Runs a smoke test, multiple one shot tests and an edge test
+for the functions imported from utils.data_cleaning.OscarsDataCleaner class
 
-test_utils_data_cleaning does not export any classes, exceptions, or functions
+test_utils_data_cleaning_oscars does not export any classes, exceptions, or functions
 """
 
 
@@ -26,7 +26,7 @@ class TestUtilsDataCleaningOscars(unittest.TestCase):
 
     # One shot tests (base tests)
     def test_clean_oscars(self):
-        """Test passes if the _clean function removes rows with None in the review_score column """
+        """Test passes if the _clean function removes rows with None in the winner column """
         cleaner_oscars = OscarsDataCleaner()
 
         dfs_to_test = [
@@ -49,8 +49,8 @@ class TestUtilsDataCleaningOscars(unittest.TestCase):
 
         for data, numrows in dfs_to_test:
             input_df =pd.DataFrame(data)
-            self.assertEqual(cleaner_oscars._clean(input_df).shape[0], numrows)
-    
+            self.assertEqual(cleaner_oscars._clean(input_df).shape[0], numrows) # pylint: disable=W0212
+
     def test_validate_movies(self):
         """Passes if no error thrown by _validate"""
 
@@ -64,15 +64,17 @@ class TestUtilsDataCleaningOscars(unittest.TestCase):
              'winner': [1.0, 3.0, 1.0]
             }
 
+
         input_df =pd.DataFrame(df_to_test)
-        cleaner_oscars._validate(input_df)
+        cleaner_oscars._validate(input_df) # pylint: disable=W0212
 
         flag = True
         self.assertTrue(flag)
 
-    # Edge tests
+
+    # Edge test
     def test_validate_edge(self):
-        """Passes if Validation  Exeption thrown by _validate_rating_col """
+        """Passes if Validation Exception thrown by _validate """
 
         cleaner_oscars = OscarsDataCleaner()
 
@@ -90,7 +92,7 @@ class TestUtilsDataCleaningOscars(unittest.TestCase):
 
         for data in dfs_to_test:
             input_df =pd.DataFrame(data)
-            self.assertRaises(ValidationException, cleaner_oscars._validate, input_df)
+            self.assertRaises(ValidationException, cleaner_oscars._validate, input_df) # pylint: disable=W0212
 
 
 if __name__ == "__main__":
