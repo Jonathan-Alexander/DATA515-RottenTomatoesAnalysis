@@ -18,7 +18,7 @@ This project uses two datasets available on Kaggle, a dataset of Rotten Tomatoes
 ### How do I re-run the data analysis pipeline? 
 [How to run the pipeline](https://github.com/Jonathan-Alexander/DATA515-RottenTomatoesAnalysis/blob/main/examples/how_to_run_pipeline.md#how-to-run-the-pipeline)
 
-### Where can I find the final analysis?
+### Where can I find the code that produced the analysis?
 [Question 1](https://github.com/Jonathan-Alexander/DATA515-RottenTomatoesAnalysis/blob/main/rotten_tomatoes/q1_modeling.ipynb)  
 
 [Question 2](https://github.com/Jonathan-Alexander/DATA515-RottenTomatoesAnalysis/blob/main/rotten_tomatoes/q2_modeling.ipynb)
