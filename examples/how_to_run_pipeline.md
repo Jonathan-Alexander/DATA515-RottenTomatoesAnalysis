@@ -118,7 +118,7 @@ $ pip install -e .
 
 ## Step 8: Update Results
 
-- Manually update the information included in Results file, including copying images from the images directory into the Results file
+- Manually update the information included in Results file, including updating the links for the images from the images directory.
 
 <br>
 
